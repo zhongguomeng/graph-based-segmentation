@@ -17,3 +17,5 @@ THIS is EVILLLLLLLLL
 ## Maybe do
 -use boost for disjoint set
 -shape recognition for object tracking
+
+http://download.springer.com/static/pdf/25/art%253A10.1007%252Fs11263-006-7934-5.pdf?auth66=1424049572_e94520cf58dfcdc9db07e7f5f0ad4b8d&ext=.pdf
