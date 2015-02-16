@@ -2,16 +2,22 @@
 THIS is EVILLLLLLLLL
 
 ## TODO
-### fix MATLAB interface: compile multiple .cpp files to mex and bypass .txt files
+### fix MATLAB interface: compile multiple .cpp files to mex and bypass .txt files [Steven]
 ### Android implementation
+
 -Interface
--Algorithm
+
+-Algorithm [Weiting]
+
 ### Graph construction in different space
--Nearest neighbor search in (x,y,r,g,b)
+
+-Nearest neighbor search in (x,y,r,g,b) [TJ]
+
 -In other spaces
+
 ### Comparison with other implemenations
 ### Think about video segmentation (using time to help)
-### Prepare slides for presentation (BY TUESDAY!!!!)
+### Prepare slides for presentation (BY TUESDAY!!!!) [Steven]
 
 
 ## Maybe do
