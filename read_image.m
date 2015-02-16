@@ -12,9 +12,11 @@ hsize = 20;
 %h = fspecial('gaussian', hsize, sigma);
 h = GaussianKernel(sigma,hsize);
 
-%padding
+% padding
 
 rgb_pad = padarray(rgb,[hsize hsize],'symmetric');
+
+% How do you do 2D convolution, this parts take like forever...
 
 outR = conv2(double(rgb_pad(:,:,1)),h,'same');
 outG = conv2(double(rgb_pad(:,:,2)),h,'same');
@@ -33,13 +35,8 @@ imshow(uint8(blured))
 
 %control parameters
 writefile = 1;
-% imH = 200;%486;
-% imW = 400;%732;
 
-% rgb = rgb2hsv(blured); 
-% rgb(:,:,2) = rgb(:,:,2)*255;
 [edgeWeights, vertices] = build_8N_GridGraph_RGB(blured(:,:,1),blured(:,:,2),blured(:,:,3),1,1,1);
-%[edgeWeights2, vertices2] = GridGraph_8N(I); %matlab version
 str = './graph/lena512_08_';
 %convert the array index 0 to 1
 vertices = vertices + 1;
