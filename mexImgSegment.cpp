@@ -218,10 +218,10 @@ myDisjointSet* constructSegment(edges* graph, int* sortedIdx, int num, float K, 
         segmentGraph->assignMSTW(temp_idx, 0);
     }
     
-    std::sort(graph, graph + edge_num);
+    //std::sort(graph, graph + edge_num);
     
     for (int idx = 0; idx < edge_num; idx++) {
-        scanIdx = idx;//sortedIdx[idx];
+        scanIdx = sortedIdx[idx];
         edges* c_edge = &graph[scanIdx]; //the current edge
         
         //find components through the representitives

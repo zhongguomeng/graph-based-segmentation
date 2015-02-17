@@ -1,12 +1,14 @@
 /*
  * Build eight nieghbor grid graph
  *
- * Input : a single channel imH x imW image 
- * Outputs  : 4*imH*imW
+ * Input : a three-channel imH x imW image 
+ * Outputs  : edge weights and end vertices
  *
  * The calling syntax is:
  *
- *		[edgeWeights vertices] = build_8N_GridGraph_RGB(R,G,B)
+ *		[edgeWeights, vertices] = build_8N_GridGraph_RGB(R,G,B,w1,w2,w3);
+ *      R,G,B : in general it can be any three channels for images
+ *      w1,w2,w3 : differnet weights for measuring the difference 
  *
  * This is a MEX-file for MATLAB.
 */
