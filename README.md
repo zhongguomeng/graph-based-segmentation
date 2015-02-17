@@ -23,7 +23,7 @@ THIS is EVILLLLLLLLL
 
 ### Comparison with other implemenations
 ### Think about video segmentation (using time to help)
-### Prepare slides for presentation (BY TUESDAY!!!!) [Steven]
+~~### Prepare slides for presentation (BY TUESDAY!!!!) [Steven]~~
 
 
 ## Maybe do
