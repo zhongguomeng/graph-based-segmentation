@@ -22,6 +22,11 @@ THIS is EVILLLLLLLLL
 -In other spaces
 
 ### Comparison with other implemenations
+C++ code:
+http://cs.brown.edu/~pff/segment/
+Matlab code:
+http://www.mathworks.com/matlabcentral/fileexchange/29299-efficient-graph-based-image-segmentation
+
 ### Think about video segmentation (using time to help)
 ~~### Prepare slides for presentation (BY TUESDAY!!!!) [Steven]~~
 
