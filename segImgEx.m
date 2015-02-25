@@ -8,7 +8,7 @@ imshow(rgb)
 
 %gaussian filter
 sigma = 0.8;
-hsize = 20;
+hsize = ceil(4*sigma);
 %h = fspecial('gaussian', hsize, sigma);
 h = GaussianKernel(sigma,hsize);
 
@@ -33,11 +33,10 @@ blured(:,:,3) = outB;
 figure,
 imshow(uint8(blured))
 
-%control parameters
-writefile = 1;
 
-[edgeWeights, vertices] = build_8N_GridGraph_RGB(blured(:,:,1),blured(:,:,2),blured(:,:,3),1,1,1);
-str = './graph/lena512_08_';
+%build graph
+[edgeWeights, vertices] = eightNeighborGridGraph(blured(:,:,1),blured(:,:,2),blured(:,:,3),1,1,1);
+
 %convert the array index 0 to 1
 vertices = vertices + 1;
 
@@ -45,24 +44,18 @@ edgeWeights = abs(edgeWeights);
 
 [sortedW,sortedIdx] = sort(edgeWeights);
 
-if writefile == 1
-    %output file
-    fSortIdx = fopen(strcat(str,'sortIdx.txt'),'w');
-    fCNodes = fopen(strcat(str,'currentNodes.txt'),'w');
-    fNNodes = fopen(strcat(str,'neighborNodes.txt'),'w');
-    fWeights = fopen(strcat(str,'weights.txt'),'w');
-    %convert the index from 1 to 0
-    vertices = vertices - 1;
-    sortedIdx = sortedIdx - 1;
-    
-    for idx = 1: length(sortedIdx)
-        fprintf(fSortIdx,'%d ', sortedIdx(idx));
-        fprintf(fCNodes,'%d ', vertices(1,idx));
-        fprintf(fNNodes,'%d ', vertices(2,idx));
-        fprintf(fWeights,'%f ',edgeWeights(idx));
-    end
-    fclose(fWeights);
-    fclose(fSortIdx);
-    fclose(fCNodes);
-    fclose(fNNodes);
-end
+%build segmentation
+
+%convert the array index from 1 to 0
+vertices = vertices - 1;
+sortedIdx = sortedIdx - 1;
+
+[mySegR, mySegG, mySegB, numSeg] = SegGraph(edgeWeights, vertices(1,:), vertices(2,:),...
+                                                m,n,length(edgeWeights), 200);
+
+SegImg = zeros(m,n,3);
+SegImg(:,:,1) = reshape(mySegB,[m,n]);
+SegImg(:,:,2) = reshape(mySegR,[m,n]);
+SegImg(:,:,3) = reshape(mySegG,[m,n]);
+figure,
+imshow(uint8(SegImg))
