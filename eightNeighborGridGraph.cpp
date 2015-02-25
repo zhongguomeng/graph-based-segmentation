@@ -6,8 +6,12 @@
  *
  * The calling syntax is:
  *
+<<<<<<< HEAD:eightNeighborGridGraph.cpp
 <<<<<<< HEAD:build_8N_GridGraph_RGB.cpp
  *		[edgeWeights, vertices] = build_8N_GridGraph_RGB(R,G,B,w1,w2,w3);
+=======
+ *		[edgeWeights, vertices] = eightNeighborGridGraph(R,G,B,w1,w2,w3);
+>>>>>>> ba306a3c3d3ea1a60d4fa880ce79f241a7951339:eightNeighborGridGraph.cpp
 =======
  *		[edgeWeights, vertices] = eightNeighborGridGraph(R,G,B,w1,w2,w3);
 >>>>>>> ba306a3c3d3ea1a60d4fa880ce79f241a7951339:eightNeighborGridGraph.cpp
