@@ -8,7 +8,7 @@ imshow(rgb)
 
 %gaussian filter
 sigma = 0.8;
-hsize = 20;
+hsize = ceil(4*sigma);
 %h = fspecial('gaussian', hsize, sigma);
 h = GaussianKernel(sigma,hsize);
 
@@ -35,7 +35,7 @@ imshow(uint8(blured))
 
 
 %build graph
-[edgeWeights, vertices] = build_8N_GridGraph_RGB(blured(:,:,1),blured(:,:,2),blured(:,:,3),1,1,1);
+[edgeWeights, vertices] = eightNeighborGridGraph(blured(:,:,1),blured(:,:,2),blured(:,:,3),1,1,1);
 
 %convert the array index 0 to 1
 vertices = vertices + 1;
@@ -50,7 +50,8 @@ edgeWeights = abs(edgeWeights);
 vertices = vertices - 1;
 sortedIdx = sortedIdx - 1;
 
-[mySegR, mySegG, mySegB, numSeg] = SegGraph(sortedIdx, edgeWeights, vertices(1,:), vertices(2,:), 200);
+[mySegR, mySegG, mySegB, numSeg] = SegGraph(edgeWeights, vertices(1,:), vertices(2,:),...
+                                                m,n,length(edgeWeights), 200);
 
 SegImg = zeros(m,n,3);
 SegImg(:,:,1) = reshape(mySegB,[m,n]);

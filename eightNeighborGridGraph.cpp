@@ -6,7 +6,7 @@
  *
  * The calling syntax is:
  *
- *		[edgeWeights, vertices] = build_8N_GridGraph_RGB(R,G,B,w1,w2,w3);
+ *		[edgeWeights, vertices] = eightNeighborGridGraph(R,G,B,w1,w2,w3);
  *      R,G,B : in general it can be any three channels for images
  *      w1,w2,w3 : differnet weights for measuring the difference 
  *
@@ -26,7 +26,7 @@ static inline float diff(int x1, int y1, int x2, int y2, int rowNum,
   return sqrt(w1*Rd*Rd+w2*Gd*Gd+w3*Bd*Bd);
 }
 
-void build_8N_GridGraph_RGB(double* edgeWeight, double* vertices,
+void eightNeighborGridGraph(double* edgeWeight, double* vertices,
 						double* R, double* G, double* B, mwSize width, mwSize height, double w1, double w2, double w3);
 
 void mexFunction(int nlhs, mxArray *plhs[], 
@@ -64,12 +64,12 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	vertices = mxGetPr(plhs[1]);
 
 	/* call the computational routine */
-	build_8N_GridGraph_RGB(edgeWeights, vertices,
+	eightNeighborGridGraph(edgeWeights, vertices,
 						inMatrixR, inMatrixG, inMatrixB, imW, imH, *w1, *w2, *w3);
 
 }
 
-void build_8N_GridGraph_RGB(double* edgeWeight, double* vertices,
+void eightNeighborGridGraph(double* edgeWeight, double* vertices,
 						double* R, double* G, double* B, mwSize imW, mwSize imH, double w1, double w2, double w3){
 
 	long num = 0;
