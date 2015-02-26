@@ -37,4 +37,4 @@ SegImg(:,:,2) = reshape(mySegR,[m,n]);
 SegImg(:,:,3) = reshape(mySegG,[m,n]);
 subplot(1,2,2);
 imshow(uint8(SegImg));
-set(gcf,'OuterPosition',[100,100,1200,600]);
+set(gcf,
