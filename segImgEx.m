@@ -1,5 +1,5 @@
 % input image
-rgb = imread('lena512color.tiff');
+rgb = imread('./testImages/lena512color.tiff');
 
 [m,n] = size(rgb(:,:,1));
 
