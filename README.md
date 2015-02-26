@@ -1,10 +1,8 @@
 # graph-based-segmentation
 
 # Usage
-1. Build 2 mex files with matlab
-	- mex SegGraph.cpp
-	- mex eightNeighborGirdGraph.cpp
-2. Run segImgEx.m in matlab
+1. Run 'buildMex.m'
+2. Run 'segImgEx.m' and see result
 
 
 ## TODO

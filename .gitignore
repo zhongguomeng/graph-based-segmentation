@@ -13,7 +13,7 @@
 *.m~
 *.mex*
 *.cpp~
-
+*.asv
 
 *.txt
 
