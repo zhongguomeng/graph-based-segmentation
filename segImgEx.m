@@ -1,41 +1,22 @@
 % input image
-rgb = imread('lena512color.tiff');
+rgb = imread('./0_testImages/lena512color.tiff');
 
 [m,n] = size(rgb(:,:,1));
 
-figure,
-imshow(rgb)
+subplot(1,2,1);
+imshow(rgb);
 
 %gaussian filter
 sigma = 0.8;
 hsize = ceil(4*sigma);
-%h = fspecial('gaussian', hsize, sigma);
-h = GaussianKernel(sigma,hsize);
 
-% padding
-
-rgb_pad = padarray(rgb,[hsize hsize],'symmetric');
-
-% How do you do 2D convolution, this parts take like forever...
-
-outR = conv2(double(rgb_pad(:,:,1)),h,'same');
-outG = conv2(double(rgb_pad(:,:,2)),h,'same');
-outB = conv2(double(rgb_pad(:,:,3)),h,'same');
-
-outR = outR(hsize+1:hsize+m,hsize+1:hsize+n);
-outG = outG(hsize+1:hsize+m,hsize+1:hsize+n);
-outB = outB(hsize+1:hsize+m,hsize+1:hsize+n);
-
-blured = zeros(m,n,3);
-blured(:,:,1) = outR;
-blured(:,:,2) = outG;
-blured(:,:,3) = outB;
-figure,
-imshow(uint8(blured))
-
+% Tianchen start, 2015/2/25
+gaussian = fspecial('gaussian',[hsize,hsize], sigma);
+blurred=imfilter(double(rgb), gaussian);
+% Tianchen end
 
 %build graph
-[edgeWeights, vertices] = eightNeighborGridGraph(blured(:,:,1),blured(:,:,2),blured(:,:,3),1,1,1);
+[edgeWeights, vertices] = eightNeighborGridGraph(blurred(:,:,1),blurred(:,:,2),blurred(:,:,3),1,1,1);
 
 %convert the array index 0 to 1
 vertices = vertices + 1;
@@ -57,5 +38,9 @@ SegImg = zeros(m,n,3);
 SegImg(:,:,1) = reshape(mySegB,[m,n]);
 SegImg(:,:,2) = reshape(mySegR,[m,n]);
 SegImg(:,:,3) = reshape(mySegG,[m,n]);
-figure,
-imshow(uint8(SegImg))
+
+% Tianchen start, 2015/2/25
+subplot(1,2,2);
+imshow(SegImg/255);
+set(gcf,'OuterPosition',[100,100,1200,600]);
+% Tianchen end

@@ -16,6 +16,7 @@
 #include <sstream>
 #include "SegGraph.h"
 #include <map>
+#include <algorithm>
 #include "mex.h"
 #define CMAX 255
 typedef struct { double R, G, B; } RGB;

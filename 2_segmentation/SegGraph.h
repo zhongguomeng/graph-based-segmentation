@@ -9,7 +9,7 @@
 #ifndef DIP_FinalProject_meximgSegment_h
 #define DIP_FinalProject_meximgSegment_h
 
-#include "myDisjointSet.h"
-#include "myDisjointSet.cpp"
+#include "../0_utils/myDisjointSet.h"
+#include "../0_utils/myDisjointSet.cpp"
 
 #endif
