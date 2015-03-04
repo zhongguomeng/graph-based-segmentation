@@ -1,11 +1,9 @@
 # graph-based-segmentation
-THIS is EVILLLLLLLLL
 
-# Matlab Workflow
+# Usage
+1. Run 'buildMex.m'
+2. Run 'segImgEx.m' and see result
 
-1. Run read_image.m to read the image and construct the graph (edges). The graph is stored in txt files. 
-2. Run the cpp file (meximgSegment.cpp). The segmented images (3 channels) are stored in .txt files (which stored as "imageName"_"NumberOfSegmentation"_mySeg"Channel".) In addition, the raw segmentation file is stored (pixel to segmentation index).
-3. Run readSeg.m to visualize the result. 
 
 ## TODO
 ### fix MATLAB interface: compile multiple .cpp files to mex and bypass .txt files [Steven]

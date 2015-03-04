@@ -12,7 +12,8 @@
 *.mat
 *.m~
 *.mex*
-
+*.cpp~
+*.asv
 
 *.txt
 

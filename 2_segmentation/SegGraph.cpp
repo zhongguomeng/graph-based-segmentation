@@ -5,17 +5,18 @@
 //  Created by Lin Weiting on 2015/2/7.
 //  Copyright (c) 2015 Weiting. All rights reserved.
 //
-
+// 
 /**
- [SegMapR SegMapG SegMapB SegNum] = SegGraph(sortedIdx, edgeWeights, lefts, rights, K);
+ [SegMapR SegMapG SegMapB SegNum] = SegGraph(edgeWeights, lefts, rights, imWidth, imHeight, edgeLength, K);
 **/
 
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "meximgSegment2.h"
+#include "SegGraph.h"
 #include <map>
+#include <algorithm>
 #include "mex.h"
 #define CMAX 255
 typedef struct { double R, G, B; } RGB;
@@ -26,9 +27,9 @@ float MInt(const myDJSNode& a, const myDJSNode& b, double K);
 float MInt(const float w1, const float w2, float K);
 inline float max3(double a, double b, double c);
 void Segmentation(int node_num, int edge_num, double* segMap,
-                 double* sortedIdx, double* edgeW, double* l, double* r, double K);
+                 double* edgeW, double* l, double* r, double K);
 edges* constructGraph(double* w, double* l, double* r,int num);
-myDisjointSet* constructSegment(edges* graph, double* sortedIdx, int num, double K, int edge_num);
+myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num);
 
 
 string ToString(size_t sz) {
@@ -40,25 +41,29 @@ string ToString(size_t sz) {
 void mexFunction(int nlhs, mxArray *plhs[], 
 				 int rlhs, const mxArray *prhs[]){
     
-    int height = 512;
-    int width  = 512;
-    
-    int dlength = (height-1)*width + (width-1)*height + 2*(width-1)*(height-1);
-    int num_nodes = height*width;
-    
-    double* sortedIdx; //get 1-D matrix
     double* edgeW; //get 1 - D matrix
     double* cNodes; //get 1 - D matrix
     double* nNodes; //get 1 - D matrix
-    double pmK; //get scaler
+    //get scaler
+    double pmK; 
+    double edgeNum;
+    double height;
+    double width;
     
     //get data from matlab
-    sortedIdx = mxGetPr(prhs[0]);
-    edgeW = mxGetPr(prhs[1]);
-    cNodes = mxGetPr(prhs[2]);
-    nNodes = mxGetPr(prhs[3]);
+    edgeW = mxGetPr(prhs[0]);
+    cNodes = mxGetPr(prhs[1]);
+    nNodes = mxGetPr(prhs[2]);
+    //Segmentation parameter
+    width = mxGetScalar(prhs[3]);
+    height = mxGetScalar(prhs[4]);
+    edgeNum = mxGetScalar(prhs[5]);
+    pmK = mxGetScalar(prhs[6]);
     
-    pmK = mxGetScalar(prhs[4]);
+    
+    int dlength = static_cast<int>((height-1)*width 
+                        + (width-1)*height + 2*(width-1)*(height-1));
+    int num_nodes = static_cast<int>(height*width);
     
     //output data
     double* R;
@@ -79,27 +84,24 @@ void mexFunction(int nlhs, mxArray *plhs[],
     double* segMap = new double[num_nodes];
     
     Segmentation(num_nodes, dlength, segMap,
-                sortedIdx, edgeW, cNodes, nNodes, pmK);
+                edgeW, cNodes, nNodes, pmK);
     
     size_t temp = Seg2Color(R, G, B, segMap, num_nodes);
-    //*numSeg = (double) temp;
+    *numSeg = (double) temp;
     
     delete [] segMap;
 }
 
 void Segmentation(int node_num, int edge_num, double* segMap,
-                 double* sortedIdx, double* edgeW, double* l, double* r, double K){
+                 double* edgeW, double* l, double* r, double K){
     edges* Graph = constructGraph(edgeW, l, r, edge_num);
     
-    myDisjointSet* Segments = constructSegment(Graph, sortedIdx, node_num, K,edge_num);
+    myDisjointSet* Segments = constructSegment(Graph, node_num, K,edge_num);
     int rep;
     for (int idx = 0; idx < node_num; ++idx) {
         rep = Segments->findSet(idx);
         segMap[idx] = static_cast<double>(rep);
     }
-    
-    //delete [] Graph;
-    //delete [] Segments;
 }
 
 
@@ -127,7 +129,7 @@ inline float max3(double a, double b, double c){
     return ( (temp > c) ? temp:c );
 }
 
-myDisjointSet* constructSegment(edges* graph, double* sortedIdx, int num, double K, int edge_num){
+myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
     myDisjointSet* segmentGraph = new myDisjointSet(num);
     int scanIdx = 0;
     //assign internal difference
@@ -136,11 +138,11 @@ myDisjointSet* constructSegment(edges* graph, double* sortedIdx, int num, double
         segmentGraph->assignMSTW(temp_idx, 0);
     }
     
-    //std::sort(graph, graph + edge_num);
+    std::sort(graph, graph + edge_num);
     
     for (int idx = 0; idx < edge_num; idx++) {
-        scanIdx = static_cast<int>(sortedIdx[idx]+0.5);
-        edges* c_edge = &graph[scanIdx]; //the current edge
+        //scanIdx = static_cast<int>(sortedIdx[idx]+0.5);
+        edges* c_edge = &graph[idx]; //the current edge
         
         //find components through the representitives
         int s1 = segmentGraph->findSet(c_edge->a);
