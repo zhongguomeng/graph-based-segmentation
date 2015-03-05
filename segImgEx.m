@@ -1,5 +1,6 @@
 % input image
-rgb = imread('./0_testImages/lena512color.tiff');
+rgb = imread('./0_testImages/dog.ppm');
+t=tic();
 
 [m,n] = size(rgb(:,:,1));
 
@@ -38,6 +39,9 @@ SegImg = zeros(m,n,3);
 SegImg(:,:,1) = reshape(mySegB,[m,n]);
 SegImg(:,:,2) = reshape(mySegR,[m,n]);
 SegImg(:,:,3) = reshape(mySegG,[m,n]);
+t=toc(t);
+
+disp(['Completed in ', num2str(t), ' secs']);
 
 % Tianchen start, 2015/2/25
 subplot(1,2,2);

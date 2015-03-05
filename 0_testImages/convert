@@ -1,0 +1,2 @@
+A=imread('dog.jpg');
+imwrite(A,'dog.ppm','ppm');
