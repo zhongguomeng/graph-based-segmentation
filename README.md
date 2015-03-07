@@ -2,7 +2,7 @@
 
 # Usage
 1. Run 'buildMex.m'
-2. Run 'segImgEx.m' and see result
+2. Run 'TestSeg.m' and see result
 
 
 ## TODO
