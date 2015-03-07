@@ -1,5 +1,8 @@
 #include <map>
 #define CMAX 255
+
+using namespace std;
+
 typedef struct { double R, G, B; } RGB;
 
 size_t Seg2Color(double* R, double* G, double*B, double* segMap, int len){
