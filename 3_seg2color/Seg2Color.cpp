@@ -31,6 +31,10 @@ void mexFunction(int nlhs, mxArray *plhs[],
     plhs[1] = mxCreateDoubleMatrix(1, num_nodes, mxREAL); //G
     plhs[2] = mxCreateDoubleMatrix(1, num_nodes, mxREAL); //B
     plhs[3] = mxCreateDoubleMatrix(1, 1, mxREAL);// numSeg
+	R = mxGetPr(plhs[0]);
+	G = mxGetPr(plhs[1]);
+	B = mxGetPr(plhs[2]);
+	numSeg = mxGetPr(plhs[3]);
 
 	size_t temp = Seg2Color(R, G, B, segMap, num_nodes);
     *numSeg = (double) temp;

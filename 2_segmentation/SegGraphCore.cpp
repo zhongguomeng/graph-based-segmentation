@@ -10,10 +10,10 @@
  [SegMapR SegMapG SegMapB SegNum] = SegGraph(edgeWeights, lefts, rights, imWidth, imHeight, edgeLength, K);
 **/
 
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-#include <sstream>
+//#include <stdio.h>
+//#include <iostream>
+//#include <fstream>
+//#include <sstream>
 #include <algorithm>
 #include "../0_utils/myDisjointSet.h"
 #include "../0_utils/myDisjointSet.cpp"
@@ -29,11 +29,11 @@ edges* constructGraph(double* w, double* l, double* r,int num);
 myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num);
 
 
-string ToString(size_t sz) {
-    stringstream ss;
-    ss << sz;
-    return ss.str();
-}
+//string ToString(size_t sz) {
+//    stringstream ss;
+//    ss << sz;
+//    return ss.str();
+//}
 
 void Segmentation(int node_num, int edge_num, double* segMap,
                  double* edgeW, double* l, double* r, double K){

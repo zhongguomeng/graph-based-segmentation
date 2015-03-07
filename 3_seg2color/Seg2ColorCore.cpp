@@ -1,4 +1,6 @@
 #include <map>
+using namespace std;
+
 #define CMAX 255
 
 using namespace std;
