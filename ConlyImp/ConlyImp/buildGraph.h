@@ -47,6 +47,7 @@ void eightNeighborGridGraph(double* edgeWeight, double* vertices,
 void mexFunction(int nlhs, mxArray *plhs[],
                  int rlhs, const mxArray *prhs[]){
     double* inMatrixR; //get 1 - D matrix
+    
     double* inMatrixG; //get 1 - D matrix
     double* inMatrixB; //get 1 - D matrix
     mwSize imH;

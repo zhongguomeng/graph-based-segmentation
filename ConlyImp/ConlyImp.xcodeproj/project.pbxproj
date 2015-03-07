@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B0577C191AA8178000AAF373 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0577C181AA8178000AAF373 /* main.cpp */; };
+		B0872FB91AABB64F00C55757 /* myDisjointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0872FB61AABB64F00C55757 /* myDisjointSet.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,11 @@
 		B0577C151AA8178000AAF373 /* ConlyImp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ConlyImp; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0577C181AA8178000AAF373 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B0577C1F1AA8261500AAF373 /* buildGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = buildGraph.h; sourceTree = "<group>"; };
+		B0872FB51AABB64F00C55757 /* edges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = edges.h; path = 0_utils/edges.h; sourceTree = "<group>"; };
+		B0872FB61AABB64F00C55757 /* myDisjointSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = myDisjointSet.cpp; path = 0_utils/myDisjointSet.cpp; sourceTree = "<group>"; };
+		B0872FB71AABB64F00C55757 /* myDisjointSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myDisjointSet.h; path = 0_utils/myDisjointSet.h; sourceTree = "<group>"; };
+		B0872FB81AABB64F00C55757 /* typeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = typeUtility.h; path = 0_utils/typeUtility.h; sourceTree = "<group>"; };
+		B0872FBA1AABB66400C55757 /* Segment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Segment.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,11 @@
 			children = (
 				B0577C181AA8178000AAF373 /* main.cpp */,
 				B0577C1F1AA8261500AAF373 /* buildGraph.h */,
+				B0872FBA1AABB66400C55757 /* Segment.h */,
+				B0872FB51AABB64F00C55757 /* edges.h */,
+				B0872FB61AABB64F00C55757 /* myDisjointSet.cpp */,
+				B0872FB71AABB64F00C55757 /* myDisjointSet.h */,
+				B0872FB81AABB64F00C55757 /* typeUtility.h */,
 			);
 			path = ConlyImp;
 			sourceTree = "<group>";
@@ -120,6 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0872FB91AABB64F00C55757 /* myDisjointSet.cpp in Sources */,
 				B0577C191AA8178000AAF373 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,6 +260,7 @@
 				B0577C1E1AA8178000AAF373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
