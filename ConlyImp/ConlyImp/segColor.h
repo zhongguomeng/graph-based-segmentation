@@ -53,7 +53,7 @@ size_t Seg2Color(Mat &img, double* segMap, uint imW, uint imH){
             pix.val[0]=tR;
             pix.val[1]=tG;
             pix.val[2]=tB;
-            pix=img.at<Vec3b>(y,x);
+            img.at<Vec3b>(y,x)=pix;
         }
     }
     size_t temp = mymap.size();

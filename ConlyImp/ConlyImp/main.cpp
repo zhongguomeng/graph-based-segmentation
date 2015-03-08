@@ -39,28 +39,31 @@ int main( int argc, char** argv )
     
     // Build the graph,
     uint* edgeWeight;
+    //Allocate memory for graph
+    //Allocating memory for the graph
+    uint imW=image.cols;
+    uint imH=image.rows;
+    uint outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
+    
+    edgeWeight = new uint [outArraySize];
+    
+    
     vector<pair<uint, uint> > vertices;
     eightNeighborGridGraph(edgeWeight,vertices, image,1,1,1);
     
-    // Do the segmentation
-    // Number of nodes:uint imW=img.cols;
-    uint imW=image.cols;
-    uint imH=image.rows;
-    uint num_nodes = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
-    
     // Return structure,
     double* segMap;
-    segMap = new double [num_nodes];
+    segMap = new double [outArraySize];
     
-    Segmentation(num_nodes, 2*num_nodes, segMap,
+    Segmentation(outArraySize, 2*outArraySize, segMap,
                  edgeWeight, vertices, 200);
     
     Seg2Color(image, segMap, imW, imH);
     
-    //namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
-    //imshow( "Display window", image );                   // Show our image inside it.
+    namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+    imshow( "Display window", image );                   // Show our image inside it.
     
-    //waitKey(0);                                          // Wait for a keystroke in the window
+    waitKey(0);                                          // Wait for a keystroke in the window
     
     
     return 0;

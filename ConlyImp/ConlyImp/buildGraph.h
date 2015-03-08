@@ -60,9 +60,6 @@ void eightNeighborGridGraph(uint* edgeWeight,
     //Allocating memory for the graph
     uint imW=img.cols;
     uint imH=img.rows;
-    uint outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
-    
-    edgeWeight = new uint [outArraySize];
     
     uint num = 0;
     

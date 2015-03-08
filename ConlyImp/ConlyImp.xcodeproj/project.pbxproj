@@ -218,13 +218,18 @@
 		B0577C1D1AA8178000AAF373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					/usr/local/Cellar/opencv/2.4.9/include/opencv,
+					/usr/local/Cellar/opencv/2.4.9/include,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/usr/local/Cellar/**",
 				);
-				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/**";
-				OTHER_LDFLAGS = "-lopencv_imgcodecs";
+				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/opencv/2.4.9/lib;
+				OTHER_LDFLAGS = "/usr/local/Cellar/opencv/2.4.9/lib/libopencv_core.dyli@";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -232,13 +237,18 @@
 		B0577C1E1AA8178000AAF373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					/usr/local/Cellar/opencv/2.4.9/include/opencv,
+					/usr/local/Cellar/opencv/2.4.9/include,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/usr/local/Cellar/**",
 				);
-				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/**";
-				OTHER_LDFLAGS = "-lopencv_imgcodecs";
+				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/opencv/2.4.9/lib;
+				OTHER_LDFLAGS = "/usr/local/Cellar/opencv/2.4.9/lib/libopencv_core.dyli@";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
