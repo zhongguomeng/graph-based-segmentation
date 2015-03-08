@@ -8,14 +8,14 @@
 
 #ifndef ConlyImp_segColor_h
 #define ConlyImp_segColor_h
-#include <map>
+#include <unordered_map>
 using namespace std;
 
 #define CMAX 255
 
 size_t Seg2Color(Mat &img, double* segMap, uint imW, uint imH){
-    map<double,RGB> mymap;
-    map<double,RGB>::iterator it;
+    unordered_map<double,RGB> mymap;
+    unordered_map<double,RGB>::iterator it;
     
     double tR;
     double tG;
@@ -23,8 +23,8 @@ size_t Seg2Color(Mat &img, double* segMap, uint imW, uint imH){
     
     double cNode;
     
-    for(int y = 0; y < imW; y++){
-        for(int x = 0; x < imH; x++){
+    for(uint y = 0; y < imW; y++){
+        for(uint x = 0; x < imH; x++){
             cNode = (double)segMap[x+imH*y];
             //haven't assigned the color
             it = mymap.find(cNode);

@@ -63,8 +63,8 @@ void eightNeighborGridGraph(uint* edgeWeight,
     
     uint num = 0;
     
-    for(int y = 0; y < imW; y++){
-        for(int x = 0; x < imH; x++){
+    for(uint y = 0; y < imW; y++){
+        for(uint x = 0; x < imH; x++){
 
             //Connect vertical edges
             if(x < imH - 1){

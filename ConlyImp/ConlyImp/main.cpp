@@ -26,11 +26,25 @@ typedef vector<pair<uint, uint> > edge_list;
 
 int main( int argc, char** argv )
 {
-    if( argc != 2)
+    float sigma=0.8;
+    short k=200;
+    cout << argc << endl;
+    if( argc < 2)
     {
-        cout <<" Usage: display_image ImageToLoadAndDisplay" << endl;
+        cout <<" Usage: display_image ImageToLoadAndDisplay [k] [sigma]" << endl;
         return -1;
     }
+    else if( argc == 3)
+    {
+        k=atoi(argv[2]);
+    }
+    else if (argc == 4)
+    {
+        k=atoi(argv[2]);
+        sigma=atof(argv[3]);
+    }
+    
+    
     
     Mat image;
     image = imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
@@ -40,8 +54,10 @@ int main( int argc, char** argv )
         cout <<  "Could not open or find the image" << std::endl ;
         return -1;
     }
+    clock_t t;
+    t = clock();
     
-    GaussianBlur( image, image, Size( 0, 0 ), 0.8, 0.8 );
+    GaussianBlur( image, image, Size( 0, 0 ), sigma, sigma );
     
     // Build the graph,
     uint* edgeWeight;
@@ -50,8 +66,6 @@ int main( int argc, char** argv )
     uint imW=image.cols;
     uint imH=image.rows;
     uint outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
-    
-    cout << "Number of edges: "<< outArraySize << endl;
     
     edgeWeight = new uint [outArraySize];
     
@@ -64,9 +78,14 @@ int main( int argc, char** argv )
     segMap = new double [outArraySize];
     
     Segmentation(outArraySize, 2*outArraySize, segMap,
-                 edgeWeight, vertices, 500);
+                 edgeWeight, vertices, k);
     
     Seg2Color(image, segMap, imW, imH);
+    t = clock() - t;
+    printf ("It took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
+    
+    
+    imwrite("./output.jpg",image);
     
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", image );                   // Show our image inside it.
