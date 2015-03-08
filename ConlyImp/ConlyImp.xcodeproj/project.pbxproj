@@ -32,6 +32,7 @@
 		B0872FB71AABB64F00C55757 /* myDisjointSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myDisjointSet.h; path = 0_utils/myDisjointSet.h; sourceTree = "<group>"; };
 		B0872FB81AABB64F00C55757 /* typeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = typeUtility.h; path = 0_utils/typeUtility.h; sourceTree = "<group>"; };
 		B0872FBA1AABB66400C55757 /* Segment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Segment.h; sourceTree = "<group>"; };
+		B0872FBB1AABE24B00C55757 /* segColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = segColor.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				B0577C181AA8178000AAF373 /* main.cpp */,
+				B0872FBB1AABE24B00C55757 /* segColor.h */,
 				B0577C1F1AA8261500AAF373 /* buildGraph.h */,
 				B0872FBA1AABB66400C55757 /* Segment.h */,
 				B0872FB51AABB64F00C55757 /* edges.h */,

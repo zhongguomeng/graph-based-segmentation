@@ -55,7 +55,7 @@ static inline float diff(int x1, int y1, int x2, int y2,
 
 
 void eightNeighborGridGraph(uint* edgeWeight,
-                            uint* vertices, Mat &img, double w1=1, double w2=1, double w3=1){
+                            vector<pair<uint, uint> > &vertices, Mat &img, double w1=1, double w2=1, double w3=1){
     
     //Allocating memory for the graph
     uint imW=img.cols;
@@ -63,7 +63,6 @@ void eightNeighborGridGraph(uint* edgeWeight,
     uint outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
     
     edgeWeight = new uint [outArraySize];
-    vertices = new uint [2*outArraySize];
     
     uint num = 0;
     
@@ -74,32 +73,28 @@ void eightNeighborGridGraph(uint* edgeWeight,
             if(x < imH - 1){
                 //edgeWeight[num] = diff(x,y,x+1,y,imH,R, G, B, w1, w2, w3);
                 edgeWeight[num]= diff(x,y,x+1,y,img, w1, w2, w3);
-                vertices[2*num] = x + y*imH;
-                vertices[2*num+1] = x+1 + y*imH;
+                vertices.push_back(make_pair(x + y*imH, x+1 + y*imH));
                 num++;
             }
 
             //Connect horizontal edges
             if (y < imW-1){
                 edgeWeight[num] = diff(x,y,x,y+1,img,w1, w2, w3);
-                vertices[2*num] = x + y*imH;
-                vertices[2*num+1] = x + (y+1)*imH;
+                vertices.push_back(make_pair(x + y*imH, x + (y+1)*imH));
                 num++;
             }
             
             //Connect up-left to down-left edges
             if(x < imH -1 && y < imW-1){
                 edgeWeight[num] = diff(x,y,x+1,y+1,img, w1, w2, w3);
-                vertices[2*num] = x + y*imH;
-                vertices[2*num+1] = (x+1) + (y+1)*imH;
+                vertices.push_back(make_pair(x + y*imH, (x+1) + (y+1)*imH));
                 num++;
             }
             
             //Connect down-left to up-right edges
             if(x > 0 && y < imW-1){
                 edgeWeight[num] = diff(x,y,x-1,y+1,img, w1, w2, w3);
-                vertices[2*num] = x + y*imH;
-                vertices[2*num+1] = (x-1) + (y+1)*imH;
+                vertices.push_back(make_pair(x + y*imH, (x-1) + (y+1)*imH));
                 num++;
             }
             
