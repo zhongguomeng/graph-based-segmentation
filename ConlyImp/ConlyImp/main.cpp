@@ -10,10 +10,10 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
-#include "buildGraph.h"
-
 using namespace cv;
 using namespace std;
+
+#include "buildGraph.h"
 
 int main( int argc, char** argv )
 {
@@ -32,14 +32,10 @@ int main( int argc, char** argv )
         return -1;
     }
     
-    Vec3b pix;
-    uint val;
-    
-    for (int i=0;i<100;i++) {
-        pix=image.at<Vec3b>(Point(i,i+1));
-        val=pix.val[0];
-        cout << val << " ";
-    }
+    // Build the graph,
+    uint* edgeWeight;
+    uint* vertices;
+    eightNeighborGridGraph(edgeWeight,vertices, image,1,1,1);
     
     //namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     //imshow( "Display window", image );                   // Show our image inside it.
