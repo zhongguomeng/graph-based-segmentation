@@ -17,8 +17,6 @@
 #include <algorithm>
 #include "../0_utils/myDisjointSet.h"
 #include "../0_utils/myDisjointSet.cpp"
-#define CMAX 255
-typedef struct { double R, G, B; } RGB;
 
 float MInt(const myDJSNode& a, const myDJSNode& b, double K);
 float MInt(const float w1, const float w2, float K);
@@ -74,7 +72,7 @@ myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
     myDisjointSet* segmentGraph = new myDisjointSet(num);
     int scanIdx = 0;
     //assign internal difference
-    for (int temp_idx; temp_idx < num; temp_idx++) {
+    for (int temp_idx=0; temp_idx < num; temp_idx++) {
         //singalton
         segmentGraph->assignMSTW(temp_idx, 0);
     }

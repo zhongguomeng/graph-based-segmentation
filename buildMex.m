@@ -3,6 +3,7 @@
 delete *.mex*
 delete *.lib*
 delete *.exp*
+delete *.txt*
 
 % mex ./1_buildGraph/eightNeighborGridGraph.cpp
 mex ./1_buildGraph/buildGraph8N3C.cpp
