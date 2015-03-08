@@ -8,7 +8,11 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
+
+// Performance measurements
+#include <time.h>
 
 using namespace cv;
 using namespace std;
@@ -37,6 +41,8 @@ int main( int argc, char** argv )
         return -1;
     }
     
+    GaussianBlur( image, image, Size( 0, 0 ), 0.8, 0.8 );
+    
     // Build the graph,
     uint* edgeWeight;
     //Allocate memory for graph
@@ -44,6 +50,8 @@ int main( int argc, char** argv )
     uint imW=image.cols;
     uint imH=image.rows;
     uint outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
+    
+    cout << "Number of edges: "<< outArraySize << endl;
     
     edgeWeight = new uint [outArraySize];
     
@@ -56,7 +64,7 @@ int main( int argc, char** argv )
     segMap = new double [outArraySize];
     
     Segmentation(outArraySize, 2*outArraySize, segMap,
-                 edgeWeight, vertices, 200);
+                 edgeWeight, vertices, 500);
     
     Seg2Color(image, segMap, imW, imH);
     

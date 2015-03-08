@@ -39,13 +39,6 @@ void Segmentation(int node_num, int edge_num, double* segMap,
 edges* constructGraph(uint* w, edge_list &vertices, int num);
 myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num);
 
-
-//string ToString(size_t sz) {
-//    stringstream ss;
-//    ss << sz;
-//    return ss.str();
-//}
-
 void Segmentation(int node_num, int edge_num, double* segMap,
                   uint* edgeW, vector<pair<uint, uint> > &vertices, int K){
     edges* Graph = constructGraph( edgeW, vertices, edge_num);
@@ -69,12 +62,6 @@ edges* constructGraph(uint* w, edge_list &vertices, int num){
         graph[idx].b = static_cast<int>(pos->second+0.5);
         idx++;
     }
-    
-//    for (int idx = 0; idx < num; idx++) {
-//        graph[idx].w = static_cast<float>(w[idx]);
-//        graph[idx].a = static_cast<int>(l[idx]+0.5);
-//        graph[idx].b = static_cast<int>(r[idx]+0.5);
-//    }
     
     return graph;
 }
