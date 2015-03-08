@@ -8,6 +8,57 @@
 
 #ifndef ConlyImp_segColor_h
 #define ConlyImp_segColor_h
+#include <map>
+using namespace std;
 
+#define CMAX 255
+
+size_t Seg2Color(Mat &img, double* segMap, uint imW, uint imH){
+    map<double,RGB> mymap;
+    map<double,RGB>::iterator it;
+    
+    double tR;
+    double tG;
+    double tB;
+    
+    double cNode;
+    
+    for(int y = 0; y < imW; y++){
+        for(int x = 0; x < imH; x++){
+            cNode = (double)segMap[x+imH*y];
+            //haven't assigned the color
+            it = mymap.find(cNode);
+            if ( it == mymap.end() ){
+                //assign the color
+                tR = rand() % CMAX;
+                tG = rand() % CMAX;
+                tB = rand() % CMAX;
+                
+                RGB* rgb = new RGB;
+                
+                (*rgb).R = tR;
+                (*rgb).B = tB;
+                (*rgb).G = tG;
+                
+                mymap.insert(std::pair<double,RGB>(cNode,*rgb));
+            } else {
+                tR = it->second.R;
+                tB = it->second.B;
+                tG = it->second.G;
+            }
+            //Assign to Image
+            Vec3b pix;
+            
+            // First pixel
+            pix.val[0]=tR;
+            pix.val[1]=tG;
+            pix.val[2]=tB;
+            pix=img.at<Vec3b>(y,x);
+        }
+    }
+    size_t temp = mymap.size();
+    mymap.clear();
+    return temp;
+}
 
 #endif

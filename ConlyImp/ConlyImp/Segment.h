@@ -29,7 +29,7 @@
 #include "0_utils/myDisjointSet.h"
 #include "0_utils/myDisjointSet.cpp"
 #define CMAX 255
-typedef struct { double R, G, B; } RGB;
+typedef struct { uint R, G, B; } RGB;
 
 float MInt(const myDJSNode& a, const myDJSNode& b, double K);
 float MInt(const float w1, const float w2, float K);

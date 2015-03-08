@@ -17,6 +17,7 @@ typedef vector<pair<uint, uint> > edge_list;
 
 #include "buildGraph.h"
 #include "Segment.h"
+#include "segColor.h"
 
 
 int main( int argc, char** argv )
@@ -53,6 +54,8 @@ int main( int argc, char** argv )
     
     Segmentation(num_nodes, 2*num_nodes, segMap,
                  edgeWeight, vertices, 200);
+    
+    Seg2Color(image, segMap, imW, imH);
     
     //namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     //imshow( "Display window", image );                   // Show our image inside it.
