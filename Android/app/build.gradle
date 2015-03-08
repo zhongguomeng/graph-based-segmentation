@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.example.android.photobyintent"
+        minSdkVersion 14
+        targetSdkVersion 21
+
+        ndk {
+            moduleName "ImageSegmentation"
+            ldLibs "log"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    sourceSets.main {
+        jni.srcDirs = [] // disable ndk sources
+        jniLibs.srcDir 'src/main/libs' //change path where lib will be install from.
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile project(':opencv')
+}
+
+task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
+    println('executing ndkBuild')
+    println('locating NDK folder')
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def ndkDir = properties.getProperty('ndk.dir');
+    println(ndkDir)
+    println(workingDir)
+    commandLine "$ndkDir/ndk-build", "-C", file('src/main').absolutePath
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn(ndkBuild)
+}
