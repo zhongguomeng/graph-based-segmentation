@@ -13,6 +13,7 @@
 myDisjointSet::myDisjointSet(int num){
     nodes = new myDJSNode[num];
     setNum = num;
+    maxNum = num;
     //make set
     for (int n = 0; n < setNum; n++) {
         nodes[n].size = 1;
@@ -26,22 +27,29 @@ myDisjointSet::myDisjointSet(int num){
 int myDisjointSet::findSet(int idx){
     
     if (nodes[idx].p == idx) {
-        return idx;
+            return idx;
     }
-    
-    vector<int> A; //empty set
+
+    int A[maxNum]; //empty set
+    int ptr = 0;
     int c_idx = idx; //current idx
-    
+
     while (nodes[c_idx].p != c_idx) { //current node is not the root
-        A.push_back(c_idx);
+            //A.push_back(c_idx);
+        A[ptr] = c_idx;
+        ptr = ptr + 1;
         c_idx = nodes[c_idx].p;
     }
-    
-    //Path compression
-    for (vector<int>::iterator it = A.begin(); it != A.end(); it++) {
-        nodes[(*it)].p = c_idx;
+
+        //Path compression
+        /*
+        for (vector<int>::iterator it = A.begin(); it != A.end(); it++) {
+            nodes[(*it)].p = c_idx;
+        }
+        */
+    for (int i = 0; i < ptr; ++i){
+        nodes[A[i]].p = c_idx;
     }
-    
     return c_idx;
 }
 
