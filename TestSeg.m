@@ -1,7 +1,7 @@
 %% Initialize
 % input image
 tic;
-rgb = imread('./0_testImages/stat.jpg');
+rgb = imread('./0_testImages/dog.jpg');
 
 [m,n] = size(rgb(:,:,1));
 
