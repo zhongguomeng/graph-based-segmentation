@@ -21,6 +21,7 @@ myDisjointSet::myDisjointSet(int num){
         nodes[n].p = n; // make every node a disjoint set
         nodes[n].MSTweight = 0;
     }
+	A.reserve(num);
 }
 
 
@@ -30,29 +31,31 @@ int myDisjointSet::findSet(int idx){
             return idx;
     }
 
-    int *A = new int[maxNum]; //empty set
-    int ptr = 0;
+    //int *A = new int[maxNum]; //empty set
+    //int ptr = 0;
+	vector<int> A;
+
     int c_idx = idx; //current idx
 
     while (nodes[c_idx].p != c_idx) { //current node is not the root
-            //A.push_back(c_idx);
-        A[ptr] = c_idx;
-        ptr = ptr + 1;
+		A.push_back(c_idx);
+        //A[ptr] = c_idx;
+        //ptr = ptr + 1;
         c_idx = nodes[c_idx].p;
     }
 
-        //Path compression
-        /*
-        for (vector<int>::iterator it = A.begin(); it != A.end(); it++) {
-            nodes[(*it)].p = c_idx;
-        }
-        */
-    for (int i = 0; i < ptr; ++i){
-        nodes[A[i]].p = c_idx;
-    }
+	//Path compression
 
-    delete [] A;
-    
+	for (vector<int>::iterator it = A.begin(); it != A.end(); it++) {
+		nodes[(*it)].p = c_idx;
+	}
+        
+    //for (int i = 0; i < ptr; ++i){
+    //    nodes[A[i]].p = c_idx;
+    //}
+
+    //delete [] A;
+    A.clear();
     return c_idx;
 }
 

@@ -29,7 +29,7 @@ public:
 class myDisjointSet{
 public:
     myDisjointSet(int num);
-    ~myDisjointSet(){ delete [] nodes; }
+    ~myDisjointSet(){ delete [] nodes;}
     
     //Disjoint Set methods
     
@@ -53,6 +53,8 @@ private:
     myDJSNode* nodes;
     int setNum; //the number of disjoint sets
     int maxNum;
+	vector<int> A;
+	
 };
 
 

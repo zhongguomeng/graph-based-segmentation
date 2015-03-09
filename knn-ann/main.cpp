@@ -40,13 +40,13 @@ void segAnn(char*, char*); // test func for Ann
 void mat2array(double*,cv::Mat&); // util
 
 int main(){
-	//seg8N3C();
+	seg8N3C();
 	//segKnn("../lena128seg.png","../lena128color.tiff");
 	//segKnn("../lena256seg.png","../lena256color.tiff");
 	//segKnn("../lena512seg.png","../lena512color.tiff");
 	//segAnn("../lena128Ann.png","../lena128color.tiff");
 	//segAnn("../lena256Ann.png","../lena256color.tiff");
-	segAnn("../lena128AnnYCrCbSmoothMerge.png","../lena128color.tiff");
+	//segAnn("../lena512YCrCb","../lena512color.tiff");
 	//segAnn("../beachAnn.png","../beach.jpg");
 
 	//system("PAUSE");
