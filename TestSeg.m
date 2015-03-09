@@ -1,7 +1,8 @@
 %% Initialize
 % input image
-rgb = imread('./0_testImages/lena512color.tiff');
-
+rgb = imread('./0_testImages/dog.jpg');
+dim=min(size(rgb,1),size(rgb,2));
+rgb = rgb(1:dim,1:dim,:);
 [m,n] = size(rgb(:,:,1));
 
 subplot(1,2,1);
@@ -34,9 +35,12 @@ vertices1 = vertices1 - 1;
 vertices2 = vertices2 - 1;
 sortedIdx = sortedIdx - 1;
 
+t=tic();
 %build segmentation
 segMap = SegGraph(edgeWeights, vertices1, vertices2,m,n,length(edgeWeights), 200);
-                                           
+t=toc(t);
+disp(['Takes ', num2str(t),' seconds to run']);
+
 [mySegR, mySegG, mySegB, numSeg] = Seg2Color(segMap, m,n);
 SegImg = zeros(m,n,3);
 SegImg(:,:,1) = reshape(mySegB,[m,n]);
