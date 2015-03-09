@@ -1,6 +1,7 @@
 %% Initialize
 % input image
-rgb = imread('./0_testImages/lena512color.tiff');
+tic;
+rgb = imread('./0_testImages/stat.jpg');
 
 [m,n] = size(rgb(:,:,1));
 
@@ -48,5 +49,5 @@ subplot(1,2,2);
 imshow(SegImg/255);
 set(gcf,'OuterPosition',[100,100,1200,600]);
 % Tianchen end
-
+toc;
 %% seg == Intersect(Rseg,Gseg,Bseg)

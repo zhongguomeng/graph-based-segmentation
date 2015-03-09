@@ -2,6 +2,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point.hpp>
@@ -45,7 +46,8 @@ int main(){
 	//segKnn("../lena512seg.png","../lena512color.tiff");
 	//segAnn("../lena128Ann.png","../lena128color.tiff");
 	//segAnn("../lena256Ann.png","../lena256color.tiff");
-	segAnn("../lena512Ann.png","../lena512color.tiff");
+	segAnn("../lena512AnnYCrCbSmooth.png","../lena512color.tiff");
+	//segAnn("../beachAnn.png","../beach.jpg");
 
 	//system("PAUSE");
 	return 0;
@@ -53,8 +55,12 @@ int main(){
 
 void segAnn(char* dst, char* src){
 	cv::Mat imageC3 = cv::imread(src); // 8-bit unsigned int
+	std::cout<<imageC3.rows<<' '<<imageC3.cols<<' '<<imageC3.channels()<<std::endl;
 	int rows = imageC3.rows;
 	int cols = imageC3.cols;
+
+	cv::GaussianBlur( imageC3, imageC3, cv::Size(5,5), 0.8 );
+	cv::cvtColor(imageC3, imageC3, CV_BGR2YCrCb);
 
 	cv::Mat channels[3];
 	cv::split(imageC3,channels);
