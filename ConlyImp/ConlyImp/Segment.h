@@ -91,7 +91,7 @@ myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
     t=clock();
     
     for (int idx = 0; idx < edge_num; idx++) {
-        int minSize=20;
+        int minSize=400;
         bool forceMerge=true;
         //scanIdx = static_cast<int>(sortedIdx[idx]+0.5);
         edges* c_edge = &graph[idx]; //the current edge

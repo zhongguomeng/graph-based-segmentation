@@ -1,6 +1,5 @@
 %% Initialize
 % input image
-tic;
 rgb = imread('./0_testImages/dog.jpg');
 
 [m,n] = size(rgb(:,:,1));
@@ -8,6 +7,7 @@ rgb = imread('./0_testImages/dog.jpg');
 subplot(1,2,1);
 imshow(rgb);
 
+tic;
 %image segmentation parameters
 K = 200;
 minSize = 400;
@@ -49,10 +49,10 @@ SegImg(:,:,1) = reshape(mySegB,[m,n]);
 SegImg(:,:,2) = reshape(mySegR,[m,n]);
 SegImg(:,:,3) = reshape(mySegG,[m,n]);
 
+toc;
 % Tianchen start, 2015/2/25
 subplot(1,2,2);
 imshow(SegImg/255);
 set(gcf,'OuterPosition',[100,100,1200,600]);
 % Tianchen end
-toc;
 %% seg == Intersect(Rseg,Gseg,Bseg)
