@@ -45,8 +45,8 @@ void mexFunction(int nlhs, mxArray *plhs[],
     w3 = mxGetPr(prhs[5]);
     
     /* initialize helper variables */
-	mwSize imW = mxGetN(prhs[0]); //get # of column
-	mwSize imH = mxGetM(prhs[0]); //get # of row
+	mwSize imH = mxGetN(prhs[0]); //get # of column
+	mwSize imW = mxGetM(prhs[0]); //get # of row
 	long outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
     
     /* create a pointer to the real data in the output matrix */
