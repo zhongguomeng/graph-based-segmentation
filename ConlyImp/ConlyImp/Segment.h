@@ -87,7 +87,12 @@ myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
     
     std::sort(graph, graph + edge_num);
     
+    clock_t t;
+    t=clock();
+    
     for (int idx = 0; idx < edge_num; idx++) {
+        int minSize=20;
+        bool forceMerge=true;
         //scanIdx = static_cast<int>(sortedIdx[idx]+0.5);
         edges* c_edge = &graph[idx]; //the current edge
         
@@ -106,11 +111,30 @@ myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
                 //update MST weight
                 int rep = segmentGraph->findSet(s1);
                 (*segmentGraph)[rep].MSTweight = max3(w1, w2, c_edge->w);
+            } else if(((*segmentGraph)[s1].size < minSize
+                       || (*segmentGraph)[s2].size < minSize)
+                      && forceMerge){
+                segmentGraph->unionSets(s1, s2);
+                
+                //update MST weight
+                int rep = segmentGraph->findSet(s1);
+                
+                //forced merge, keep the MST weight as the largest segment
+                
+                if ((*segmentGraph)[s1].size <= (*segmentGraph)[s2].size){
+                    (*segmentGraph)[rep].MSTweight = w2;
+                }else{
+                    (*segmentGraph)[rep].MSTweight = w1;
+                }
+            } else {
+                //do nothing
             }
         }
         
         
     } //end segmentation
+    t=clock()-t;
+    printf ("Running Loop in Segmen took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
     
     return segmentGraph;
 }
