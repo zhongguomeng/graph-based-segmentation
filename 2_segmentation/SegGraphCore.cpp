@@ -24,7 +24,7 @@ inline float max3(double a, double b, double c);
 void Segmentation(int node_num, int edge_num, double* segMap,
                  double* edgeW, double* l, double* r, double K, double minSize, bool forceMerge);
 edges* constructGraph(double* w, double* l, double* r,int num);
-myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num, double minSize, bool forceMerge));
+myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num, double minSize, bool forceMerge);
 
 
 //string ToString(size_t sz) {

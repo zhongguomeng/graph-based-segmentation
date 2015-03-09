@@ -30,7 +30,7 @@ int myDisjointSet::findSet(int idx){
             return idx;
     }
 
-    int A[maxNum]; //empty set
+    int [] A = new int[maxNum]; //empty set
     int ptr = 0;
     int c_idx = idx; //current idx
 
@@ -50,6 +50,9 @@ int myDisjointSet::findSet(int idx){
     for (int i = 0; i < ptr; ++i){
         nodes[A[i]].p = c_idx;
     }
+
+    delete [] A;
+    
     return c_idx;
 }
 
