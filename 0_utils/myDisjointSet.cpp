@@ -30,7 +30,7 @@ int myDisjointSet::findSet(int idx){
             return idx;
     }
 
-    int [] A = new int[maxNum]; //empty set
+    int *A = new int[maxNum]; //empty set
     int ptr = 0;
     int c_idx = idx; //current idx
 

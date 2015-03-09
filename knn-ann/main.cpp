@@ -87,7 +87,7 @@ void segAnn(char* dst, char* src){
 
 	// segmentation
 	double* segMap = new double[rows*cols];
-	Segmentation(rows*cols,edgeNum,segMap,edgeWeight,vertices1, vertices2, 200);
+	Segmentation(rows*cols,edgeNum,segMap,edgeWeight,vertices1, vertices2, 200,20,true);
 
 	// seg to color
 	double* segB = new double[rows*cols*channels[0].elemSize()];
@@ -151,7 +151,7 @@ void segKnn(char* dst, char* src){
 
 	// segmentation
 	double* segMap = new double[rows*cols];
-	Segmentation(rows*cols,edgeNum,segMap,edgeWeight,vertices1, vertices2, 200);
+	Segmentation(rows*cols,edgeNum,segMap,edgeWeight,vertices1, vertices2, 200,20, true);
 
 	// seg to color
 	double* segB = new double[rows*cols*channels[0].elemSize()];
@@ -214,7 +214,7 @@ void seg8N3C(){
 
 	// segmentation
 	double* segMap = new double[rows*cols];
-	Segmentation(rows*cols,edgeNum,segMap,edgeWeight,vertices1, vertices2, 200);
+	Segmentation(rows*cols,edgeNum,segMap,edgeWeight,vertices1, vertices2, 200,20,true);
 
 	// seg to color
 	double* segB = new double[rows*cols*channels[0].elemSize()];
