@@ -40,13 +40,13 @@ void segAnn(char*, char*); // test func for Ann
 void mat2array(double*,cv::Mat&); // util
 
 int main(){
-	seg8N3C();
+	//seg8N3C();
 	//segKnn("../lena128seg.png","../lena128color.tiff");
 	//segKnn("../lena256seg.png","../lena256color.tiff");
 	//segKnn("../lena512seg.png","../lena512color.tiff");
 	//segAnn("../lena128Ann.png","../lena128color.tiff");
 	//segAnn("../lena256Ann.png","../lena256color.tiff");
-	//segAnn("../lena512YCrCb","../lena512color.tiff");
+	segAnn("../lena512HSV.png","../lena512color.tiff");
 	//segAnn("../beachAnn.png","../beach.jpg");
 
 	//system("PAUSE");
@@ -60,7 +60,7 @@ void segAnn(char* dst, char* src){
 	int cols = imageC3.cols;
 
 	cv::GaussianBlur( imageC3, imageC3, cv::Size(5,5), 0.8 );
-	cv::cvtColor(imageC3, imageC3, CV_BGR2YCrCb);
+	cv::cvtColor(imageC3, imageC3, CV_BGR2HSV);
 
 	cv::Mat channels[3];
 	cv::split(imageC3,channels);
