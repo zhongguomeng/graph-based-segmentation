@@ -6,7 +6,7 @@
  *
  * The calling syntax is:
  *
- *		[edgeWeights, vertices] = buildGraph8N3C(R,G,B,w1,w2,w3);
+ *		[edgeWeights, vertices1, vertices2] = buildGraph8N3C(R,G,B,w1,w2,w3);
  *      R,G,B : in general it can be any three channels for images
  *      w1,w2,w3 : differnet weights for measuring the difference 
  *
@@ -22,9 +22,9 @@ void mexFunction(int nlhs, mxArray *plhs[],
         mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs",
                 "Six inputs required.");
     }
-    if(nlhs!=2) {
+    if(nlhs!=3) {
         mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nlhs",
-                "Two output required.");
+                "Three output required.");
     }
     // input
 	double* inMatrixR; //get 1 - D matrix
@@ -33,7 +33,8 @@ void mexFunction(int nlhs, mxArray *plhs[],
     double *w1,*w2,*w3;
     // output
     double* edgeWeights; 
-	double* vertices;
+	double* vertices1;
+	double* vertices2;
     
 	/* create a pointer to the real data in the input matrix  */
 	inMatrixR = mxGetPr(prhs[0]);
@@ -51,10 +52,12 @@ void mexFunction(int nlhs, mxArray *plhs[],
     /* create a pointer to the real data in the output matrix */
 	plhs[0] = mxCreateDoubleMatrix(1, outArraySize, mxREAL); 
 	edgeWeights = mxGetPr(plhs[0]);
-	plhs[1] = mxCreateDoubleMatrix(2, outArraySize, mxREAL);
-	vertices = mxGetPr(plhs[1]);
+	plhs[1] = mxCreateDoubleMatrix(1, outArraySize, mxREAL);
+	vertices1 = mxGetPr(plhs[1]);
+	plhs[2] = mxCreateDoubleMatrix(1, outArraySize, mxREAL);
+	vertices2 = mxGetPr(plhs[2]);
     
 	/* call the computational routine */
-	buildGraph8N3C(edgeWeights, vertices,
+	buildGraph8N3C(edgeWeights, vertices1, vertices2,
 						inMatrixR, inMatrixG, inMatrixB, imW, imH, *w1, *w2, *w3);
 }
