@@ -8,6 +8,11 @@ rgb = imread('./0_testImages/stat.jpg');
 subplot(1,2,1);
 imshow(rgb);
 
+%image segmentation parameters
+K = 200;
+minSize = 400;
+forceMerge = 1;
+
 %gaussian filter
 sigma = 0.8;
 hsize = [4 4]; % same as Felzenszwalb's
@@ -36,7 +41,7 @@ vertices2 = vertices2 - 1;
 sortedIdx = sortedIdx - 1;
 
 %build segmentation
-segMap = SegGraph(edgeWeights, vertices1, vertices2,m,n,length(edgeWeights), 200);
+segMap = SegGraph(edgeWeights, vertices1, vertices2,m,n,length(edgeWeights), K, minSize, forceMerge);
                                            
 [mySegR, mySegG, mySegB, numSeg] = Seg2Color(segMap, m,n);
 SegImg = zeros(m,n,3);

@@ -16,9 +16,9 @@
 void mexFunction(int nlhs, mxArray *plhs[], 
 				 int nrhs, const mxArray *prhs[]){
     
-	if(nrhs!=7) {
+	if(nrhs!=9) {
         mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs",
-                "Seven inputs required.");
+                "Nine inputs required.");
     }
     if(nlhs!=1) {
         mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nlhs",
@@ -32,13 +32,16 @@ void mexFunction(int nlhs, mxArray *plhs[],
     double edgeNum;
     double height;
     double width;
-
+    double minSize;
+    double tempFM;
+    
     bool forceMerge;
     
     //get data from matlab
     edgeW = mxGetPr(prhs[0]); // edgeWeights
     cNodes = mxGetPr(prhs[1]);
     nNodes = mxGetPr(prhs[2]);
+    
     //Segmentation parameter
     width = mxGetScalar(prhs[3]); // cols
     height = mxGetScalar(prhs[4]); // rows
@@ -60,4 +63,6 @@ void mexFunction(int nlhs, mxArray *plhs[],
     
     Segmentation(num_nodes, dlength, segMap,
                 edgeW, cNodes, nNodes, pmK, minSize, forceMerge);
+    
+    
 }
