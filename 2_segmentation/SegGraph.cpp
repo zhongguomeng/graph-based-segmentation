@@ -32,6 +32,8 @@ void mexFunction(int nlhs, mxArray *plhs[],
     double edgeNum;
     double height;
     double width;
+
+    bool forceMerge;
     
     //get data from matlab
     edgeW = mxGetPr(prhs[0]); // edgeWeights
@@ -42,6 +44,11 @@ void mexFunction(int nlhs, mxArray *plhs[],
     height = mxGetScalar(prhs[4]); // rows
     edgeNum = mxGetScalar(prhs[5]); // number of edges
     pmK = mxGetScalar(prhs[6]); // K
+    minSize = mxGetScalar(prhs[7]);//minSize
+    tempFM = mxGetScalar(prhs[8]);// force merge
+
+    forceMerge = (tempFM == 1);
+
     
     int dlength = static_cast<int>((height-1)*width 
                         + (width-1)*height + 2*(width-1)*(height-1));
@@ -52,5 +59,5 @@ void mexFunction(int nlhs, mxArray *plhs[],
     double* segMap = mxGetPr(plhs[0]);        
     
     Segmentation(num_nodes, dlength, segMap,
-                edgeW, cNodes, nNodes, pmK);
+                edgeW, cNodes, nNodes, pmK, minSize, forceMerge);
 }
