@@ -46,7 +46,7 @@ int main(){
 	//segKnn("../lena512seg.png","../lena512color.tiff");
 	//segAnn("../lena128Ann.png","../lena128color.tiff");
 	//segAnn("../lena256Ann.png","../lena256color.tiff");
-	segAnn("../lena512AnnYCrCbSmooth.png","../lena512color.tiff");
+	segAnn("../lena128AnnYCrCbSmoothMerge.png","../lena128color.tiff");
 	//segAnn("../beachAnn.png","../beach.jpg");
 
 	//system("PAUSE");
@@ -64,7 +64,7 @@ void segAnn(char* dst, char* src){
 
 	cv::Mat channels[3];
 	cv::split(imageC3,channels);
-	channels[0].convertTo(channels[0], CV_64F); 
+	channels[0].convertTo(channels[0], CV_64F);
 	channels[1].convertTo(channels[1], CV_64F);
 	channels[2].convertTo(channels[2], CV_64F);
 
