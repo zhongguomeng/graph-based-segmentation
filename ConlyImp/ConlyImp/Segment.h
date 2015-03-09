@@ -35,32 +35,31 @@ float MInt(const myDJSNode& a, const myDJSNode& b, double K);
 float MInt(const float w1, const float w2, float K);
 inline float max3(double a, double b, double c);
 void Segmentation(int node_num, int edge_num, double* segMap,
-                  uint* edgeW, vector<pair<uint, uint> > &vertices, int K);
-edges* constructGraph(uint* w, edge_list &vertices, int num);
+                  uint* edgeW, edge_list * vertices, int K);
+edges* constructGraph(uint* w, edge_list * vertices, int num);
 myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num);
 
 void Segmentation(int node_num, int edge_num, double* segMap,
-                  uint* edgeW, vector<pair<uint, uint> > &vertices, int K){
-    edges* Graph = constructGraph( edgeW, vertices, edge_num);
+                  uint* edgeW, edge_list * vertices, int K){
     
+    edges* Graph = constructGraph( edgeW, vertices, edge_num);
+    // This is the most time consuming part
     myDisjointSet* Segments = constructSegment(Graph, node_num, K,edge_num);
+
     for (int idx = 0; idx < node_num; ++idx) {
         segMap[idx] = static_cast<double> (Segments->findSet(idx));
     }
 }
 
 
-edges* constructGraph(uint* w, edge_list &vertices, int num){
+edges* constructGraph(uint* w, edge_list * vertices, int num){
     edges* graph = new edges[num];
-    
-    uint idx=0;
-    for (edge_list::const_iterator pos = vertices.begin();
-         pos !=vertices.end();++pos)
+
+    for (uint idx=0; idx < num;++idx)
     {
         graph[idx].w = static_cast<float>(w[idx]);
-        graph[idx].a = static_cast<int>(pos->first+0.5);
-        graph[idx].b = static_cast<int>(pos->second+0.5);
-        idx++;
+        graph[idx].a = static_cast<int>(vertices[idx].first+0.5);
+        graph[idx].b = static_cast<int>(vertices[idx].second+0.5);
     }
     
     return graph;

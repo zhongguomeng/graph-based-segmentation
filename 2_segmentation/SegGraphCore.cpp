@@ -22,9 +22,9 @@ float MInt(const myDJSNode& a, const myDJSNode& b, double K);
 float MInt(const float w1, const float w2, float K);
 inline float max3(double a, double b, double c);
 void Segmentation(int node_num, int edge_num, double* segMap,
-                 double* edgeW, double* l, double* r, double K);
+                 double* edgeW, double* l, double* r, double K, double minSize, bool forceMerge);
 edges* constructGraph(double* w, double* l, double* r,int num);
-myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num);
+myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num, double minSize, bool forceMerge));
 
 
 //string ToString(size_t sz) {
@@ -34,10 +34,10 @@ myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num);
 //}
 
 void Segmentation(int node_num, int edge_num, double* segMap,
-                 double* edgeW, double* l, double* r, double K){
+                 double* edgeW, double* l, double* r, double K, double minSize, bool forceMerge){
     edges* Graph = constructGraph(edgeW, l, r, edge_num);
     
-    myDisjointSet* Segments = constructSegment(Graph, node_num, K,edge_num);
+    myDisjointSet* Segments = constructSegment(Graph, node_num, K,edge_num, minSize, forceMerge);
     for (int idx = 0; idx < node_num; ++idx) {
         segMap[idx] = static_cast<double> (Segments->findSet(idx));
     }
@@ -68,7 +68,9 @@ inline float max3(double a, double b, double c){
     return ( (temp > c) ? temp:c );
 }
 
-myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
+myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num, 
+            double minSize, bool forceMerge){
+
     myDisjointSet* segmentGraph = new myDisjointSet(num);
     int scanIdx = 0;
     //assign internal difference
@@ -98,6 +100,23 @@ myDisjointSet* constructSegment(edges* graph, int num, double K, int edge_num){
                 //update MST weight
                 int rep = segmentGraph->findSet(s1);
                 (*segmentGraph)[rep].MSTweight = max3(w1, w2, c_edge->w);
+            } else if(((*segmentGraph)[s1].size < minSize 
+                    || (*segmentGraph)[s2].size < minSize)
+                    && forceMerge){ 
+                segmentGraph->unionSets(s1, s2);
+
+                //update MST weight
+                int rep = segmentGraph->findSet(s1);
+
+                //forced merge, keep the MST weight as the largest segment
+
+                if ((*segmentGraph)[s1].size <= (*segmentGraph)[s2].size){
+                    (*segmentGraph)[rep].MSTweight = w2;
+                }else{
+                    (*segmentGraph)[rep].MSTweight = w1;
+                }
+            } else {
+                //do nothing
             }
         }
         

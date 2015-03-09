@@ -52,7 +52,7 @@ public:
 private:
     myDJSNode* nodes;
     int setNum; //the number of disjoint sets
-    
+    int maxNum;
 };
 
 
