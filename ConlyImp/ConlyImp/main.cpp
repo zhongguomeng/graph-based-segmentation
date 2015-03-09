@@ -10,6 +10,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
+#include <array>
 
 // Performance measurements
 #include <time.h>
@@ -17,7 +18,7 @@
 using namespace cv;
 using namespace std;
 
-typedef vector<pair<uint, uint> > edge_list;
+typedef pair<uint, uint> edge_list;
 
 #include "buildGraph.h"
 #include "Segment.h"
@@ -54,11 +55,10 @@ int main( int argc, char** argv )
         cout <<  "Could not open or find the image" << std::endl ;
         return -1;
     }
-    clock_t t;
-    t = clock();
-    
+    clock_t t_total,t;
     GaussianBlur( image, image, Size( 0, 0 ), sigma, sigma );
     
+    t_total=clock();
     // Build the graph,
     uint* edgeWeight;
     //Allocate memory for graph
@@ -69,21 +69,26 @@ int main( int argc, char** argv )
     
     edgeWeight = new uint [outArraySize];
     
-    
-    vector<pair<uint, uint> > vertices;
+    t=clock();
+    edge_list *vertices;
+    vertices= new edge_list [outArraySize];
     eightNeighborGridGraph(edgeWeight,vertices, image,1,1,1);
+    t=clock()-t;
+    printf ("Building graph took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
     
     // Return structure,
     double* segMap;
     segMap = new double [outArraySize];
     
-    Segmentation(outArraySize, 2*outArraySize, segMap,
+    t=clock();
+    Segmentation(imW*imH, outArraySize, segMap,
                  edgeWeight, vertices, k);
+    t=clock()-t;
+    printf ("Segmentation took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
     
     Seg2Color(image, segMap, imW, imH);
-    t = clock() - t;
-    printf ("It took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
-    
+    t_total = clock() - t_total;
+    printf ("In total, it took me %d clicks (%f seconds).\n",(int)t_total,((float)t_total)/CLOCKS_PER_SEC);
     
     imwrite("./output.jpg",image);
     
