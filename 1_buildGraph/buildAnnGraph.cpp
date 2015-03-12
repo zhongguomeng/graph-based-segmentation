@@ -28,11 +28,16 @@ void buildAnnGraph(double* edgeWeight, double* vertices1, double* vertices2,
 	for(int y=0; y<rows; y++){
 	for(int x=0; x<cols; x++){
 		int id = x+y*cols;
-		features.at<double>(id,0)=x/cols*1024;
-		features.at<double>(id,1)=y/rows*1024;
-		features.at<double>(id,2)=(R[id]-minR)/(maxR-minR)*1024;
-		features.at<double>(id,3)=(G[id]-minG)/(maxG-minG)*1024;
-		features.at<double>(id,4)=(B[id]-minB)/(maxB-minB)*1024;
+		features.at<double>(id,0)=(double)x/(double)cols*256.0;
+		features.at<double>(id,1)=(double)y/(double)rows*256.0;
+		features.at<double>(id,2)=(R[id]-minR)/(maxR-minR)*256.0;
+		features.at<double>(id,3)=(G[id]-minG)/(maxG-minG)*256.0;
+		features.at<double>(id,4)=(B[id]-minB)/(maxB-minB)*256.0;
+		//features.at<double>(id,0)=x;
+		//features.at<double>(id,1)=y;
+		//features.at<double>(id,2)=R[id];
+		//features.at<double>(id,3)=G[id];
+		//features.at<double>(id,4)=B[id];
 	}}
 	std::cout<<"feature prepare done"<<std::endl;
 	// construct flann indexing
@@ -53,8 +58,7 @@ void buildAnnGraph(double* edgeWeight, double* vertices1, double* vertices2,
 				continue;
 			edgeWeight[num]=sqrt(dist.at<double>(i,j));
 			vertices1[num]=i;
-			vertices2[num]=features.at<double>(indices.at<int>(i,j),0)
-				+features.at<double>(indices.at<int>(i,j),1)*cols;
+			vertices2[num]=indices.at<int>(i,j);
 			num++;
 		}
 	}}

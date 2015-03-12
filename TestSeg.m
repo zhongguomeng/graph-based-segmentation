@@ -1,5 +1,6 @@
 %% Initialize
 % input image
+<<<<<<< HEAD
 tic;
 
 %load image
@@ -7,12 +8,16 @@ fileName = 'postjp';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
 
 rgb = imread(filePath);
+=======
+rgb = imread('./0_testImages/dog.jpg');
+>>>>>>> a3a0579021a02c340e1769e7b8fa675cf18d46ef
 
 [m,n] = size(rgb(:,:,1));
 
 subplot(1,2,1);
 imshow(rgb);
 
+tic;
 %image segmentation parameters
 K = 200;
 minSize = 100;
@@ -54,15 +59,19 @@ SegImg(:,:,1) = reshape(mySegB,[m,n]);
 SegImg(:,:,2) = reshape(mySegR,[m,n]);
 SegImg(:,:,3) = reshape(mySegG,[m,n]);
 
+toc;
 % Tianchen start, 2015/2/25
 subplot(1,2,2);
 imshow(uint8(SegImg));
 set(gcf,'OuterPosition',[100,100,1200,600]);
 % Tianchen end
+<<<<<<< HEAD
 toc;
 
 %save image
 % save current segmentation
 myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
 imwrite(uint8(SegImg),myFilePath);
+=======
+>>>>>>> a3a0579021a02c340e1769e7b8fa675cf18d46ef
 %% seg == Intersect(Rseg,Gseg,Bseg)

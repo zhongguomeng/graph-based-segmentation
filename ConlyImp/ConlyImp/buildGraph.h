@@ -58,8 +58,8 @@ void eightNeighborGridGraph(uint* edgeWeight,
                             edge_list *vertices, Mat &img, double w1=1, double w2=1, double w3=1){
     
     //Allocating memory for the graph
-    uint imW=img.cols;
-    uint imH=img.rows;
+    uint imW=img.rows;
+    uint imH=img.cols;
     
     uint num = 0;
     

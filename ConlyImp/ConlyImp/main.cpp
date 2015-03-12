@@ -63,8 +63,8 @@ int main( int argc, char** argv )
     uint* edgeWeight;
     //Allocate memory for graph
     //Allocating memory for the graph
-    uint imW=image.cols;
-    uint imH=image.rows;
+    uint imW=image.rows;
+    uint imH=image.cols;
     uint outArraySize = (imH-1)*imW + (imW-1)*imH + 2*(imH-1)*(imW-1);
     
     edgeWeight = new uint [outArraySize];
