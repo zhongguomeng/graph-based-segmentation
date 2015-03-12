@@ -1,16 +1,12 @@
 %% Initialize
 % input image
-<<<<<<< HEAD
 tic;
 
 %load image
-fileName = 'postjp';
+fileName = 'redberry_rb03';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
 
 rgb = imread(filePath);
-=======
-rgb = imread('./0_testImages/dog.jpg');
->>>>>>> a3a0579021a02c340e1769e7b8fa675cf18d46ef
 
 [m,n] = size(rgb(:,:,1));
 
@@ -65,13 +61,10 @@ subplot(1,2,2);
 imshow(uint8(SegImg));
 set(gcf,'OuterPosition',[100,100,1200,600]);
 % Tianchen end
-<<<<<<< HEAD
 toc;
 
 %save image
 % save current segmentation
 myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
 imwrite(uint8(SegImg),myFilePath);
-=======
->>>>>>> a3a0579021a02c340e1769e7b8fa675cf18d46ef
 %% seg == Intersect(Rseg,Gseg,Bseg)

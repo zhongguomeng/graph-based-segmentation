@@ -1,10 +1,10 @@
 %load file
-fileName = 'postjp';
-gtN = '39';
+fileName = 'redberry_rb03';
+gtN = '38';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.png');
 
 %set the representive coordinate
-rep_xy = [191, 198];
+rep_xy = [258, 103];
 
 %load ground truth
 gt = imread(filePath);
@@ -64,3 +64,5 @@ recall = overlap/sum(sum(gt_T));
 F = 2*precision*recall/(precision+recall);
 disp(F)
 
+myBinFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/myBin_',fileName,'.png');
+imwrite(mySeg_T,myBinFilePath)
