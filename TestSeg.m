@@ -1,7 +1,12 @@
 %% Initialize
 % input image
 tic;
-rgb = imread('./0_testImages/dog.jpg');
+
+%load image
+fileName = 'postjp';
+filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
+
+rgb = imread(filePath);
 
 [m,n] = size(rgb(:,:,1));
 
@@ -10,12 +15,12 @@ imshow(rgb);
 
 %image segmentation parameters
 K = 200;
-minSize = 400;
+minSize = 100;
 forceMerge = 1;
 
 %gaussian filter
-sigma = 0.8;
-hsize = [4 4]; % same as Felzenszwalb's
+sigma = 4;
+hsize = 2*[sigma, sigma];%[4 4]; % same as Felzenszwalb's
 
 % Tianchen start, 2015/2/25
 gaussian = fspecial('gaussian',hsize, sigma);
@@ -51,8 +56,13 @@ SegImg(:,:,3) = reshape(mySegG,[m,n]);
 
 % Tianchen start, 2015/2/25
 subplot(1,2,2);
-imshow(SegImg/255);
+imshow(uint8(SegImg));
 set(gcf,'OuterPosition',[100,100,1200,600]);
 % Tianchen end
 toc;
+
+%save image
+% save current segmentation
+myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
+imwrite(uint8(SegImg),myFilePath);
 %% seg == Intersect(Rseg,Gseg,Bseg)

@@ -3,7 +3,7 @@
 //  DIP_FinalProject
 //
 //  Created by Lin Weiting on 2015/2/7.
-//  Copyright (c) 2015å¹´ Weiting. All rights reserved.
+//  Copyright (c) 2015å¹?Weiting. All rights reserved.
 //
 
 
@@ -30,13 +30,12 @@ int myDisjointSet::findSet(int idx){
     if (nodes[idx].p == idx) {
             return idx;
     }
-
-    //int *A = new int[maxNum]; //empty set
-    //int ptr = 0;
 	//vector<int> A;
 
     int c_idx = idx; //current idx
-
+    
+    /** PATH COMPRESSION **/
+    //collect nodes for path compression
     while (nodes[c_idx].p != c_idx) { //current node is not the root
 		A.push_back(c_idx);
         //A[ptr] = c_idx;
@@ -45,16 +44,15 @@ int myDisjointSet::findSet(int idx){
     }
 
 	//Path compression
-
 	for (vector<int>::iterator it = A.begin(); it != A.end(); it++) {
 		nodes[(*it)].p = c_idx;
 	}
-        
-    //for (int i = 0; i < ptr; ++i){
-    //    nodes[A[i]].p = c_idx;
-    //}
-
-    //delete [] A;
+    /**END PATH COMPRESSION **/
+    
+    
+    //without path compression
+    //nodes[idx].p = c_idx;
+    
     A.clear();
     return c_idx;
 }
