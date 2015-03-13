@@ -3,7 +3,7 @@
 tic;
 
 %load image
-fileName = 'moth061304_0679';
+fileName = 'b4nature_animals_land009';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
 %filePath = './10_results/dog_o.jpg';
 rgb = imread(filePath);

@@ -1,10 +1,10 @@
 %load file
-fileName = 'moth061304_0679';
-gtN = '27';
+fileName = 'b4nature_animals_land009';
+gtN = '4';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.png');
 
 %set the representive coordinate
-rep_xy = [112,156];%[159, 137];%[258, 103];
+rep_xy = [119 152];%[112,156];%[159, 137];%[258, 103];
 author = 0;
 %load ground truth
 gt = imread(filePath);
