@@ -125,19 +125,63 @@ Image segmentation is a well studied problem and their are many existing methods
 	
 \subsection{Implementation Outline}
 
-For efficiency, we write the core components of our code in C++. At a high-level, there are two main time consuming stages: building the graph and segmenting it. To build the graph we iterate through the 8 nearest-neighbor pixels to produce a list of edges called the adjency list and a list of weights computed using a measure for the difference between pixels. We store the adjancency list in a preallocated integer array and the weights in a preallocated double array. Our choice of data structure is due to the fact the next function will sort these lists in increasing weight order.
+For efficiency, we write the core components of our code in C++. At a high-level, there are two main time consuming stages: building the graph and segmenting it. To build the graph we iterate through the 8 nearest-neighbor pixels to produce a list of edges called the adjacency list and a list of weights computed using a measure for the difference between pixels. We store the adjacency list in a preallocated integer array and the weights in a preallocated double array. Our choice of data structure is due to the fact the next function will sort these lists in increasing weight order.
 
-For the segmentation, we use disjoint sets, as mentioned in the paper, to store the different clusters. Our implementation of this data structure uses path compression to find the set of each pixel efficiently once the segmentation is done. The code first sorts the adjancency list according to edge weights, then initializes the pixels to their own set. It iterates through the entire adjency list and performs a comparison to decide whether or not to merge.
+For the segmentation, we use disjoint sets, as mentioned in the paper, to store the different clusters. Our implementation of this data structure uses path compression to find the set of each pixel efficiently once the segmentation is done. The code first sorts the adjacency list according to edge weights, then initializes the pixels to their own set. It iterates through the entire adjacency list and performs a comparison to decide whether or not to merge.
 	
 Producing the colored output image is actually a significant step as well though (with regards to time consumption). The coloring function must iterate through each pixel and find the set in which it belongs. We use an unordered map (hash table) to store the color values corresponding to each set and set the pixel colors accordingly.
 
-We present a more detailed breakdown of the code's performance in the benchmark section; however, in is important to note that the segmentation step is significantly more time consuming that the other steps, as expected. We can build the graph in less than 1.5 seconds for a 3187 by 2015 pixel image. The segmentation takes less that 6 seconds, and the coloring less than 1.
+We present a more detailed breakdown of the code's performance in the benchmark section; however, it is important to note that the segmentation step is significantly more time consuming than the other steps, as expected. We can build the graph in less than 1.5 seconds for a 3187 by 2015 pixel image. The segmentation takes less that 6 seconds, and the coloring less than 1 second.
 	
 \subsection{ Segmentation Algorithm}
 
-One of the major difference between our algorithm and the authors' is that we impose a minimum compenent size right at the beginning of the segmentation process whereas they impose it as a post-processing condition. This leads to less noisy components (small compenents with no sematic information) in the final result. The reason is that our method seeds compenents in noisy regions and facilitates component expansion where it would otherwise not occur.
+One of the major difference between our algorithm and the authors' is that we impose a minimum component size constraint right at the beginning of the segmentation process whereas they impose it as a post-processing condition. This leads to less noisy components (small components with no semantic information) in the final result. The reason is that our method seeds components in noisy regions and facilitates component expansion where it would otherwise not occur.
 
-Since one of the paper's main objectives is to collect noisy regions into components to account for textures, we believe our minimum size pre-condition is an improvement. The benchmark provides a quatitative backing for this assertion.
+%Need figure to compare 
+
+Since one of the paper's main objectives is to collect noisy regions into components to account for textures, we believe our minimum size pre-condition is an improvement. The benchmark provides a quantitative backing for this assertion.
+
+\subsection{Benchmark}
+
+We use the F-measure to compute segmentation accuracy against ground truth images. Table \ref{bench} summarizes our results.
+
+\begin{table}
+\begin{tabular}{|p{3cm}|c|c|c|c|c|}
+\hline 
+($\sigma$ = 4, minSize = 100, $K$ = 200) & Mailbox & Hand holding red berries & Moth & Frog & Frog with $\sigma=1$\tabularnewline
+\hline 
+\hline 
+Our code & 0.9057 & 0.8242 & 0.9501 & 0.7842 & 0.8302\tabularnewline
+\hline 
+Author's code & 0.8365 & 0.8141 & 0.8520 & 0.3004 & 0.8208\tabularnewline
+\hline
+\end{tabular}
+\caption{F-measure for Ground truth images}
+\label{bench}
+\end{table}
+
+
+\subsection{Android App}
+
+We implement an Android App that can take a picture from the camera and segment that image. We use OpenCV to convert the Bitmap format coming from the android camera to the Mat format which we can use to do a 2D Gaussian blur. We use the Android NDK toolkit to interface the core C++ segmentation function with Java to optimize performance. Functions building the connected graph and assigning the RGB color to disjoint sets are less critical, so we rewrite them in Java.
+
+To illustrate the usage of our Android program, figure \ref{og} shows a picture taken from a phone and figure \ref{ogs} shows the segmented version of that image using our app. The segmentation process on the phone runs in a few seconds.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=40mm]{./img/screensh.png}
+  \end{center}
+\caption{Original picture taken from Android Camera}
+\label{og}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=40mm]{./img/screenshSEG.png}
+  \end{center}
+\caption{Segmented picture taken from Android Camera}
+\label{ogs}
+\end{figure}
 
 \begin{thebibliography}{2}
 \small
