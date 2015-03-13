@@ -3,7 +3,7 @@
 tic;
 
 %load image
-fileName = 'b4nature_animals_land009';
+fileName = 'redberry_rb03';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
 %filePath = './10_results/dog_o.jpg';
 rgb = imread(filePath);

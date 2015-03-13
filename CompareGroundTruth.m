@@ -1,11 +1,11 @@
 %load file
-fileName = 'b4nature_animals_land009';
-gtN = '4';
+fileName = 'redberry_rb03';
+gtN = '38';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.png');
 
 %set the representive coordinate
-rep_xy = [101 148];%[112,156];%[159, 137];%[258, 103];
-author = 0;
+rep_xy = [177,142];%[159, 137];%[258, 103];
+author = 1;
 %load ground truth
 gt = imread(filePath);
 [m,n,~] = size(gt);
