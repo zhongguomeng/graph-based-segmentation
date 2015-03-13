@@ -129,7 +129,7 @@ For efficiency, we write the core components of our code in C++. At a high-level
 
 For the segmentation, we use disjoint sets, as mentioned in the paper, to store the different clusters. Our implementation of this data structure uses path compression to find the set of each pixel efficiently once the segmentation is done. The code first sorts the adjancency list according to edge weights, then initializes the pixels to their own set. It iterates through the entire adjency list and performs a comparison to decide whether or not to merge.
 	
-Producing the colored output image is actually a significant step as well though (with regards to time consumption). The coloring function must iterate through each pixel and find the set in which it belongs. We use an unordered map, or hash table, to store the color values corresponding to each set and set the pixel colors accordingly.
+Producing the colored output image is actually a significant step as well though (with regards to time consumption). The coloring function must iterate through each pixel and find the set in which it belongs. We use an unordered map (hash table) to store the color values corresponding to each set and set the pixel colors accordingly.
 
 We present a more detailed breakdown of the code's performance in the benchmark section; however, in is important to note that the segmentation step is significantly more time consuming that the other steps, as expected. We can build the graph in less than 1.5 seconds for a 3187 by 2015 pixel image. The segmentation takes less that 6 seconds, and the coloring less than 1.
 	
