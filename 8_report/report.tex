@@ -122,8 +122,22 @@ For a presegmened image dataset we used the image available at,
 
 Image segmentation is a well studied problem and their are many existing methods. These range from simple pixel manipulation (thresholding or watershed for example) to more global methods like mean-shift and graph cut.
 	Among these methods, graph-based techniques are among the most popular methods these days due to their efficiency and segmentation accuracy. The method described in Felzenszwalb \emph{et al.} \ref{paper} starts off with every pixel as a component. Then it iterates through all edges in ascending order based on pixel "differences" (defined in certain way), and merges pixels based on the edge weight. In a high-level sense, this graph-based method maximizes inter-component distance and minimizes intra-component distance.
+	
+\subsection{Implementation Outline}
 
+For efficiency, we write the core components of our code in C++. At a high-level, there are two main time consuming stages: building the graph and segmenting it. To build the graph we iterate through the 8 nearest-neighbor pixels to produce a list of edges called the adjency list and a list of weights computed using a measure for the difference between pixels. We store the adjancency list in a preallocated integer array and the weights in a preallocated double array. Our choice of data structure is due to the fact the next function will sort these lists in increasing weight order.
 
+For the segmentation, we use disjoint sets, as mentioned in the paper, to store the different clusters. Our implementation of this data structure uses path compression to find the set of each pixel efficiently once the segmentation is done. The code first sorts the adjancency list according to edge weights, then initializes the pixels to their own set. It iterates through the entire adjency list and performs a comparison to decide whether or not to merge.
+	
+Producing the colored output image is actually a significant step as well though (with regards to time consumption). The coloring function must iterate through each pixel and find the set in which it belongs. We use an unordered map, or hash table, to store the color values corresponding to each set and set the pixel colors accordingly.
+
+We present a more detailed breakdown of the code's performance in the benchmark section; however, in is important to note that the segmentation step is significantly more time consuming that the other steps, as expected. We can build the graph in less than 1.5 seconds for a 3187 by 2015 pixel image. The segmentation takes less that 6 seconds, and the coloring less than 1.
+	
+\subparagraph{Modified Segmentation Algorithm}
+
+One of the major difference between our algorithm and the authors' is that we impose a minimum compenent size right at the beginning of the segmentation process whereas they impose it as a post-processing condition. This leads to less noisy components (small compenents with no sematic information) in the final result. The reason is that our method seeds compenents in noisy regions and facilitates component expansion where it would otherwise not occur.
+
+Since one of the paper's main objectives is to collect noisy regions into components to account for textures, we believe our minimum size pre-condition is an improvement. The benchmark provides a quatitative backing for this assertion.
 
 \begin{thebibliography}{2}
 \small
