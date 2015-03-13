@@ -79,7 +79,7 @@ Our project implements \emph{Efficient Graph-based segmentation} by Felzenszwalb
 
 \item On a scale of 1 (easy) -10 (impossible), quantify if your original goal was reasonable.
 
-7: the goal presented some challenges, especially for efficient implementation, but it was reasonable for a team of 3. This is why we decided to extend it and add more features. Specifically, we implemented a minimum size for the components, built the nearest-neighbor connected graph in a different color spaces, and experimented with building the graph in a 5-D position and color space.
+7: the goal presented some challenges, especially for efficient implementation, but it was reasonable for a team of 3. This is why we decided to extend it and add more features. Specifically, we implemented a minimum size for the components, experimented with building the graph in a 5-D feature space, and we tried different color spaces for the old algorithm and the 5-D space one.
 
 \item On a scale of 1-100, what is your evaluation of the percent work that you were able to complete, with respect to your initial goal.
 
@@ -91,24 +91,38 @@ Yes, absolutely.
 
 \item Are you asking for EXTRA CREDIT?  (YES or NO)
 
-Yes
+Yes.
 
 \item If your answer to Q5 is YES, please identify (2-3 sentences) additional work that you did beyond the base objectives that deserve the extra credit. You should elaborate this more in your detailed report.
 
-Our extra credit objective was to implement the same algorithm on an Android phone. This involves rewriting code that will work in the context of Android's limited memory availability and library system that isn't compatible with some of the tools we had originally used.
+Our extra credit objective was to implement and adapt the same algorithm on an Android phone. This involves rewriting code that will work in the context of Android's limited memory availability and library system that isn't compatible with some of the tools we had originally used.
 
 \item Did you write all of the software for your project? (YES or NO).
 
-Yes, except for the benchmark comparisons, obviously.
+Yes, except for the benchmark comparisons. And, we used 3rd party libraries detailed below.
 
 \item If your answer is NO, please list ALL the sources you used for your project.
 
-http://cs.brown.edu/~pff/segment/
+We used OpenCV for reading and writing files, for Guassian blur, and for approximate nearest neighbor search. And, we used BOOST for the exact k-nearest neighbor search.
+
+For comparison we used the authors' available at,
+
+\url{http://cs.brown.edu/~pff/segment/}
+
+For a presegmened image dataset we used the image available at,
+
+\url{http://www.wisdom.weizmann.ac.il/~vision/Seg_Evaluation_DB/dl.html}
 
 \end{enumerate}
 
 
 \section{Final Technical Report}
+
+\subsection{Introduction}
+
+Image segmentation is a well studied problem and their are many existing methods. These range from simple pixel manipulation (thresholding or watershed for example) to more global methods like mean-shift and graph cut.
+	Among these methods, graph-based techniques are among the most popular methods these days due to their efficiency and segmentation accuracy. The method described in Felzenszwalb \emph{et al.} \ref{paper} starts off with every pixel as a component. Then it iterates through all edges in ascending order based on pixel "differences" (defined in certain way), and merges pixels based on the edge weight. In a high-level sense, this graph-based method maximizes inter-component distance and minimizes intra-component distance.
+
 
 
 \begin{thebibliography}{2}
