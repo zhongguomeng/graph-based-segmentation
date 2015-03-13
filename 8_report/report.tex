@@ -10,8 +10,9 @@
 \usepackage[latin9]{inputenc}
 \usepackage[letterpaper]{geometry}
 \usepackage{wrapfig}
-\usepackage{subfig}
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{babel}
 \usepackage{amstext}
 \usepackage{amsmath}
@@ -103,13 +104,13 @@ Yes, except for the benchmark comparisons. And, we used 3rd party libraries deta
 
 \item If your answer is NO, please list ALL the sources you used for your project.
 
-We used OpenCV for reading and writing files, for Guassian blur, and for approximate nearest neighbor search. And, we used BOOST for the exact k-nearest neighbor search.
+We used OpenCV for reading and writing files, for Gaussian blur, and for approximate nearest neighbor search. And, we used BOOST for the exact k-nearest neighbor search.
 
 For comparison we used the authors' available at,
 
 \url{http://cs.brown.edu/~pff/segment/}
 
-For a presegmened image dataset we used the image available at,
+For a pre-segmented image data-set we used the image available at,
 
 \url{http://www.wisdom.weizmann.ac.il/~vision/Seg_Evaluation_DB/dl.html}
 
@@ -121,7 +122,8 @@ For a presegmened image dataset we used the image available at,
 \subsection{Introduction}
 
 Image segmentation is a well studied problem and their are many existing methods. These range from simple pixel manipulation (thresholding or watershed for example) to more global methods like mean-shift and graph cut.
-	Among these methods, graph-based techniques are among the most popular methods these days due to their efficiency and segmentation accuracy. The method described in Felzenszwalb \emph{et al.} \ref{paper} starts off with every pixel as a component. Then it iterates through all edges in ascending order based on pixel "differences" (defined in certain way), and merges pixels based on the edge weight. In a high-level sense, this graph-based method maximizes inter-component distance and minimizes intra-component distance.
+
+Among these methods, graph-based techniques are among the most popular methods these days due to their efficiency and segmentation accuracy. The method described in Felzenszwalb \emph{et al.} \cite{paper} starts off with every pixel as a component. Then it iterates through all edges in ascending order based on pixel "differences" (defined in certain way), and merges pixels based on the edge weight. In a high-level sense, this graph-based method maximizes inter-component distance and minimizes intra-component distance.
 	
 \subsection{Implementation Outline}
 
@@ -137,9 +139,27 @@ We present a more detailed breakdown of the code's performance in the benchmark 
 
 One of the major difference between our algorithm and the authors' is that we impose a minimum component size constraint right at the beginning of the segmentation process whereas they impose it as a post-processing condition. This leads to less noisy components (small components with no semantic information) in the final result. The reason is that our method seeds components in noisy regions and facilitates component expansion where it would otherwise not occur.
 
-%Need figure to compare 
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{./img/dog.jpg}
+                \caption{Original dog picture}
+                \label{ogdog}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{./img/our_dog.jpg}
+                \caption{Dog picture segmented with our code}
+                \label{ourdg}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{./img/their_dog.jpg}
+                \caption{Dog picture segmented with author's code}
+                \label{theirdg}
+        \end{subfigure}
+\end{figure}
 
-Since one of the paper's main objectives is to collect noisy regions into components to account for textures, we believe our minimum size pre-condition is an improvement. The benchmark provides a quantitative backing for this assertion.
+Since one of the paper's main objectives is to collect noisy regions into components to account for textures, we believe our minimum size pre-condition is an improvement. The benchmark provides a quantitative backing for this assertion. Figures \ref{ogdog}, \ref{ourdg}, \ref{theirdg} illustrate he differences in segmentation results that we obtain.
 
 \subsection{Benchmark}
 
@@ -160,30 +180,39 @@ Author's code & 0.8365 & 0.8141 & 0.8520 & 0.3004 & 0.8208\tabularnewline
 \label{bench}
 \end{table}
 
-
 \subsection{Android App}
 
 We implement an Android App that can take a picture from the camera and segment that image. We use OpenCV to convert the Bitmap format coming from the android camera to the Mat format which we can use to do a 2D Gaussian blur. We use the Android NDK toolkit to interface the core C++ segmentation function with Java to optimize performance. Functions building the connected graph and assigning the RGB color to disjoint sets are less critical, so we rewrite them in Java.
 
 To illustrate the usage of our Android program, figure \ref{og} shows a picture taken from a phone and figure \ref{ogs} shows the segmented version of that image using our app. The segmentation process on the phone runs in a few seconds.
 
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=40mm]{./img/screensh.png}
-  \end{center}
-\caption{Original picture taken from Android Camera}
-\label{og}
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{./img/screensh.png}
+                \caption{Original image from Android phone}
+                \label{og}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{./img/screenshSEG.png}
+                \caption{Segmented image from Android phone}
+                \label{ogs}
+        \end{subfigure}
 \end{figure}
 
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=40mm]{./img/screenshSEG.png}
-  \end{center}
-\caption{Segmented picture taken from Android Camera}
-\label{ogs}
-\end{figure}
+\subsection{Multi-Dimensional Graph Construction}
 
-\begin{thebibliography}{2}
+In this section, we explain why and how we built the multi-demisional graph, and the corresponding result.
+
+In the author's original segmentation method, the graph was built in a Von Neumann Neighborhood or Moore Neighborhood. The weight of the edges is defined as the L2 distance of in the RGB color space for a color image or intensity difference for a gray-scale image. Their paper describes a method for building the graph in a multi-dimensional space, but they do not implement it \cite{paper}.
+
+For the multi-dimesional graph, we use a 5-D feature space to describe every pixel. The components are: $X$, $Y$, $C_1$, $C_2$, $C_3$. X and Y are corresponding pixel coordinates. $C_1$, $C_2$, and $C_3$ are three components of a certain color space (R, G, and B for RGB color space). We used this 5-D feature space hoping that by combining pixel location information with pixel color information, we can achieve better segmentation results.
+
+In this graph construction, the pixel difference is measured by L2 distance in the 5-D space. Based on this difference measure, every pixel is connected to the K nearest other pixels and a graph is formed.
+
+It is important to note that the distance of the 5-D feature points are also sensitive to the value range of each component. For pixel coordinates X and Y, they would be dependent on the image size. For color components, the value range depends on the actual color space being used. In order to make a fair comparison between different color spaces and to achieve invariance for different image sizes, we normalized coordinates and color components to range from 0 to 1.
+
+\begin{thebibliography}{1}
 \small
 
 \bibitem{paper}
