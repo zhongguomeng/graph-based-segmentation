@@ -33,6 +33,7 @@
 		B0872FB81AABB64F00C55757 /* typeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = typeUtility.h; path = 0_utils/typeUtility.h; sourceTree = "<group>"; };
 		B0872FBA1AABB66400C55757 /* Segment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Segment.h; sourceTree = "<group>"; };
 		B0872FBB1AABE24B00C55757 /* segColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = segColor.h; sourceTree = "<group>"; };
+		B0DC64341AB214D2007718EF /* boost_segment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = boost_segment.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +70,7 @@
 				B0872FBB1AABE24B00C55757 /* segColor.h */,
 				B0577C1F1AA8261500AAF373 /* buildGraph.h */,
 				B0872FBA1AABB66400C55757 /* Segment.h */,
+				B0DC64341AB214D2007718EF /* boost_segment.h */,
 				B0872FB51AABB64F00C55757 /* edges.h */,
 				B0872FB61AABB64F00C55757 /* myDisjointSet.cpp */,
 				B0872FB71AABB64F00C55757 /* myDisjointSet.h */,
@@ -227,8 +229,12 @@
 					/usr/local/Cellar/opencv/2.4.9/include/opencv,
 					/usr/local/Cellar/opencv/2.4.9/include,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.56.0/include/,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/opencv/2.4.9/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/opencv/2.4.9/lib,
+					"/usr/local/Cellar/boost/1.56.0/lib\n/usr/local/Cellar/boost/1.56.0/lib\n/usr/local/Cellar/boost/1.56.0/lib",
+				);
 				OTHER_LDFLAGS = "/usr/local/Cellar/opencv/2.4.9/lib/libopencv_core.dyli@";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -246,8 +252,12 @@
 					/usr/local/Cellar/opencv/2.4.9/include/opencv,
 					/usr/local/Cellar/opencv/2.4.9/include,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.56.0/include/,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/opencv/2.4.9/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/opencv/2.4.9/lib,
+					"/usr/local/Cellar/boost/1.56.0/lib\n/usr/local/Cellar/boost/1.56.0/lib\n/usr/local/Cellar/boost/1.56.0/lib",
+				);
 				OTHER_LDFLAGS = "/usr/local/Cellar/opencv/2.4.9/lib/libopencv_core.dyli@";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

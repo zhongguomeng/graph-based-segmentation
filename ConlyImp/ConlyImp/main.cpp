@@ -15,6 +15,11 @@
 // Performance measurements
 #include <time.h>
 
+// For boost implementations,
+#include <vector>
+#include <boost/graph/properties.hpp>
+#include <boost/pending/detail/disjoint_sets.hpp>
+
 using namespace cv;
 using namespace std;
 
@@ -23,6 +28,7 @@ typedef pair<uint, uint> edge_list;
 #include "buildGraph.h"
 #include "Segment.h"
 #include "segColor.h"
+#include "boost_segment.h"
 
 
 int main( int argc, char** argv )
@@ -81,7 +87,7 @@ int main( int argc, char** argv )
     segMap = new double [outArraySize];
     
     t=clock();
-    Segmentation(imW*imH, outArraySize, segMap,
+    B_Segmentation(imW*imH, outArraySize, segMap,
                  edgeWeight, vertices, k);
     t=clock()-t;
     printf ("Segmentation took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
