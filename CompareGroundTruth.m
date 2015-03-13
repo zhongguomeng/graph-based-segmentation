@@ -4,7 +4,7 @@ gtN = '4';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.png');
 
 %set the representive coordinate
-rep_xy = [119 152];%[112,156];%[159, 137];%[258, 103];
+rep_xy = [101 148];%[112,156];%[159, 137];%[258, 103];
 author = 0;
 %load ground truth
 gt = imread(filePath);
