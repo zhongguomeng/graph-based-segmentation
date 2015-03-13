@@ -1,11 +1,11 @@
 %load file
-fileName = 'redberry_rb03';
-gtN = '38';
+fileName = 'moth061304_0679';
+gtN = '27';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.png');
 
 %set the representive coordinate
-rep_xy = [235,100];%[159, 137];%[258, 103];
-author = 1;
+rep_xy = [112,156];%[159, 137];%[258, 103];
+author = 0;
 %load ground truth
 gt = imread(filePath);
 [m,n,~] = size(gt);

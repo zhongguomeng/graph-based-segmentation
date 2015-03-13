@@ -3,8 +3,8 @@
 tic;
 
 %load image
-fileName = 'redberry_rb03';
-filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.ppm');
+fileName = 'moth061304_0679';
+filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
 %filePath = './10_results/dog_o.jpg';
 rgb = imread(filePath);
 
@@ -23,7 +23,7 @@ author = 0;
 
 %gaussian filter
 sigma = 4;
-hsize = 2*[4,4];%2*[sigma, sigma];%[4 4]; % same as Felzenszwalb's
+hsize = [4,4];%2*[sigma, sigma];%[4 4]; % same as Felzenszwalb's
 
 % Tianchen start, 2015/2/25
 gaussian = fspecial('gaussian',hsize, sigma);
