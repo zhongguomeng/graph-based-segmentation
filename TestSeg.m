@@ -5,7 +5,7 @@ tic;
 %load image
 fileName = 'redberry_rb03';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
-
+%filePath = './10_results/dog_o.jpg';
 rgb = imread(filePath);
 
 [m,n] = size(rgb(:,:,1));
@@ -19,9 +19,11 @@ K = 200;
 minSize = 100;
 forceMerge = 1;
 
+author = 0;
+
 %gaussian filter
 sigma = 4;
-hsize = 2*[sigma, sigma];%[4 4]; % same as Felzenszwalb's
+hsize = 2*[4,4];%2*[sigma, sigma];%[4 4]; % same as Felzenszwalb's
 
 % Tianchen start, 2015/2/25
 gaussian = fspecial('gaussian',hsize, sigma);
@@ -46,8 +48,12 @@ vertices1 = vertices1 - 1;
 vertices2 = vertices2 - 1;
 sortedIdx = sortedIdx - 1;
 
-%build segmentation
-segMap = SegGraph(edgeWeights, vertices1, vertices2,m,n,length(edgeWeights), K, minSize, forceMerge);
+if author == 0
+    %build segmentation
+    segMap = SegGraph(edgeWeights, vertices1, vertices2,m,n,length(edgeWeights), K, minSize, forceMerge);
+else
+    segMap = SegGraphAuthor(edgeWeights, vertices1, vertices2,m,n,length(edgeWeights), K, minSize, forceMerge);
+end
                                            
 [mySegR, mySegG, mySegB, numSeg] = Seg2Color(segMap, m,n);
 SegImg = zeros(m,n,3);
@@ -64,7 +70,11 @@ set(gcf,'OuterPosition',[100,100,1200,600]);
 toc;
 
 %save image
-% save current segmentation
-myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
+if author == 0
+    % save current segmentation
+    myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
+else
+    myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/author_',fileName,'.png');
+end
 imwrite(uint8(SegImg),myFilePath);
 %% seg == Intersect(Rseg,Gseg,Bseg)

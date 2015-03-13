@@ -4,8 +4,8 @@ gtN = '38';
 filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.png');
 
 %set the representive coordinate
-rep_xy = [258, 103];
-
+rep_xy = [235,100];%[159, 137];%[258, 103];
+author = 0;
 %load ground truth
 gt = imread(filePath);
 [m,n,~] = size(gt);
@@ -24,8 +24,12 @@ for x = 1:m
     end
 end
 
-%our segmentation
-myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
+if author ~=1
+    %our segmentation
+    myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
+else
+    myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/author_',fileName,'.png');
+end
 mySeg = imread(myFilePath);
 
 mySeg_T = zeros(m,n);
@@ -64,5 +68,9 @@ recall = overlap/sum(sum(gt_T));
 F = 2*precision*recall/(precision+recall);
 disp(F)
 
-myBinFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/myBin_',fileName,'.png');
+if author == 0
+    myBinFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/myBin_',fileName,'.png');
+else
+    myBinFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/author_Bin_',fileName,'.png');
+end
 imwrite(mySeg_T,myBinFilePath)
