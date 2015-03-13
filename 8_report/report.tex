@@ -133,7 +133,7 @@ Producing the colored output image is actually a significant step as well though
 
 We present a more detailed breakdown of the code's performance in the benchmark section; however, in is important to note that the segmentation step is significantly more time consuming that the other steps, as expected. We can build the graph in less than 1.5 seconds for a 3187 by 2015 pixel image. The segmentation takes less that 6 seconds, and the coloring less than 1.
 	
-\subparagraph{Modified Segmentation Algorithm}
+\subsection{ Segmentation Algorithm}
 
 One of the major difference between our algorithm and the authors' is that we impose a minimum compenent size right at the beginning of the segmentation process whereas they impose it as a post-processing condition. This leads to less noisy components (small compenents with no sematic information) in the final result. The reason is that our method seeds compenents in noisy regions and facilitates component expansion where it would otherwise not occur.
 
