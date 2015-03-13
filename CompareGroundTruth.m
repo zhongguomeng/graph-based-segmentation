@@ -5,7 +5,7 @@ filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'_',gtN,'.
 
 %set the representive coordinate
 rep_xy = [235,100];%[159, 137];%[258, 103];
-author = 0;
+author = 1;
 %load ground truth
 gt = imread(filePath);
 [m,n,~] = size(gt);
@@ -28,7 +28,7 @@ if author ~=1
     %our segmentation
     myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/my_',fileName,'.png');
 else
-    myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/author_',fileName,'.png');
+    myFilePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/OUT',fileName,'.ppm');
 end
 mySeg = imread(myFilePath);
 

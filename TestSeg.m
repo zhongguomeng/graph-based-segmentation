@@ -4,7 +4,7 @@ tic;
 
 %load image
 fileName = 'redberry_rb03';
-filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.png');
+filePath = strcat('./11_ImagesWithGroundTruth/',fileName,'/',fileName,'.ppm');
 %filePath = './10_results/dog_o.jpg';
 rgb = imread(filePath);
 
